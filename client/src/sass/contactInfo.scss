@@ -1,0 +1,34 @@
+@import "../sass/variables.scss";
+@import "../sass/mixins.scss";
+
+.container__contact-info {
+  width: 30%;
+  height: 100%;
+  padding-top: 0.4rem;
+  @include flexProp(column, 1rem, flex-start);
+
+  & .info-layout {
+    @include flexProp(row, 1.5rem, flex-start);
+    width: 100%;
+
+    & .icn {
+      .icon {
+        height: 1.2rem;
+        width: 1.2rem;
+        color: $secondaryText;
+      }
+    }
+
+    & .text {
+      & h3 {
+        font-weight: 600;
+        font-size: 1.1rem;
+        color: $secondaryText;
+      }
+
+      & p {
+        font-size: 0.9rem;
+      }
+    }
+  }
+}

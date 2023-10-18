@@ -1,0 +1,29 @@
+@import "../sass/variables.scss";
+@import "../sass/mixins.scss";
+
+.share-yours {
+  @include sectionProp;
+  @include flexProp(column, 0, space-between);
+  padding: 3rem 0;
+  position: relative;
+  font-family: "poppins", sans-serif;
+
+  & img {
+    width: 100%;
+    margin-top: 4rem;
+  }
+
+  .title {
+    @include flexProp(column, 0.5rem, space-between);
+    position: absolute;
+
+    & p {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    & h1 {
+      font-size: 2rem;
+    }
+  }
+}

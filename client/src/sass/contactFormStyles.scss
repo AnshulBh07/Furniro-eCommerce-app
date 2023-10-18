@@ -1,0 +1,54 @@
+@import "../sass/variables.scss";
+@import "../sass/mixins.scss";
+
+.container__contact-form {
+  width: 50%;
+  font-family: "poppins", sans-serif;
+  height: 100%;
+
+  & .contact-form {
+    width: 100%;
+    @include flexProp(column, 1.5rem, space-between);
+    align-items: flex-start;
+
+    .inputs {
+      @include flexProp(column, 0.5rem, space-between);
+      align-items: flex-start;
+      width: 100%;
+
+      & label {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: $primaryText;
+      }
+
+      & input {
+        width: 100%;
+        padding: 1rem;
+        border-radius: 8px;
+        border: 2px solid $tertairyText;
+        color: $secondaryText;
+
+        &:focus {
+          outline: none;
+        }
+      }
+
+      & textarea {
+        width: 100%;
+        padding: 1rem;
+        border-radius: 8px;
+        border: 2px solid $tertairyText;
+        color: $secondaryText;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    & button {
+      @include useBtns;
+    }
+  }
+}

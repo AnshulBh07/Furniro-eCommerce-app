@@ -1,0 +1,15 @@
+@import "../sass/variables.scss";
+@import "../sass/mixins.scss";
+
+.shop-items__section {
+  @include sectionProp;
+
+  .items__container {
+    width: 100%;
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    justify-content: space-between;
+  }
+}

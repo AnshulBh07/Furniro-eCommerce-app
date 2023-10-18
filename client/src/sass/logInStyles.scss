@@ -1,0 +1,172 @@
+@import "../sass/variables.scss";
+@import "../sass/mixins.scss";
+
+.container__login {
+  @include containerProp;
+  position: relative;
+  justify-content: space-between !important;
+  flex-direction: row;
+  overflow: hidden;
+
+  .image-part {
+    width: 50%;
+    height: 100vh;
+    margin: 0;
+
+    & img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .login-form {
+    width: 45%;
+    height: 100%;
+    @include flexProp(column, 1.6rem, flex-start);
+    padding: 2.4rem;
+    height: 100vh;
+    font-family: "poppins", sans-serif;
+    position: relative;
+
+    .brand {
+      @include flexProp(row, 0.6rem, space-between);
+      align-self: flex-end;
+      margin-right: 1rem;
+
+      & h2 {
+        font-size: 1rem;
+        font-weight: 600;
+        text-transform: capitalize;
+        color: $primaryText;
+      }
+
+      & img {
+        height: 1rem;
+      }
+    }
+
+    & h1 {
+      font-weight: 600;
+      text-transform: capitalize;
+      color: $primaryText;
+      width: 70%;
+    }
+
+    & p {
+      color: $tertairyText;
+      width: 70%;
+      font-size: 0.9rem;
+    }
+    .inputs {
+      width: 70%;
+      @include flexProp(column, 1.5rem, space-between);
+
+      .input-field {
+        @include flexProp(column, 0.5rem, space-between);
+        width: 100%;
+        align-items: flex-start;
+
+        & label {
+          font-size: 1rem;
+          font-weight: 600;
+          text-transform: capitalize;
+        }
+
+        & input {
+          width: 100%;
+          padding: 1rem;
+          font-size: 1rem;
+          background-color: $bgColor;
+          border: 2px solid $hoverBtn;
+          border-radius: 5px;
+
+          &:focus {
+            outline: none;
+          }
+
+          &::placeholder {
+            color: $hoverBtn;
+          }
+        }
+
+        .pwd {
+          width: 100%;
+          @include flexProp(row, 0rem, space-between);
+          position: relative;
+
+          & .show-pwd {
+            height: 100%;
+            padding: 0.3rem;
+            border-radius: 5px;
+            background-color: transparent;
+            border: none;
+            position: absolute;
+            cursor: pointer;
+            right: 2%;
+
+            .icon {
+              height: 1.6rem;
+              width: 1.6rem;
+              color: $tertairyText;
+            }
+          }
+        }
+      }
+    }
+
+    & a {
+      width: 70%;
+      font-size: 0.9rem;
+      text-transform: capitalize;
+      color: $bannerTitle;
+      text-decoration: none;
+    }
+
+    .btn-login {
+      @include useBtns;
+      text-transform: capitalize;
+      padding: 0.5rem 2.5rem;
+    }
+
+    & hr {
+      height: 0.1rem;
+      border: none;
+      width: 70%;
+      background-color: $hoverBtn;
+      position: relative;
+    }
+
+    .google-btn {
+      width: 70%;
+      background-color: $bgColor;
+      border-radius: 5px;
+      border: 2px solid $hoverBtn;
+      @include flexProp(row, 0rem, center);
+      padding: 0.5rem;
+      cursor: pointer;
+
+      .google-logo {
+        height: 2rem;
+        width: 2rem;
+      }
+
+      & p {
+        width: 40%;
+      }
+    }
+  }
+
+  .lamp1 {
+    position: absolute;
+    height: 30rem;
+    top: -5%;
+    left: 33%;
+  }
+
+  .lamp2 {
+    position: absolute;
+    height: 30rem;
+    top: -22%;
+    left: 22%;
+  }
+}

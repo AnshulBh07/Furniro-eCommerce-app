@@ -1,0 +1,189 @@
+@import "../sass/variables.scss";
+@import "../sass/mixins.scss";
+
+.product-info__main {
+  @include sectionProp;
+  padding: 3rem 8rem;
+
+  .container-main {
+    width: 100%;
+    @include flexProp(row, 2rem, flex-start);
+    min-height: 35rem;
+
+    .images-main {
+      @include flexProp(column, 1rem, flex-start);
+      min-height: 35rem;
+
+      & label {
+        position: relative;
+
+        & .image-select {
+          height: 4rem;
+          width: 4rem;
+          cursor: pointer;
+          z-index: 3;
+          appearance: none;
+        }
+
+        & img {
+          height: 4rem;
+          position: absolute;
+          left: 4%;
+          border-radius: 8px;
+          z-index: -1;
+        }
+
+        & .image-select:checked + img {
+          border: 2px solid $bannerTitle;
+        }
+      }
+    }
+
+    .bigger-image {
+      & img {
+        max-height: 35rem;
+        border-radius: 8px;
+      }
+    }
+
+    .product-main-info {
+      @include flexProp(column, 1rem, flex-start);
+      min-height: 35rem;
+      align-items: flex-start;
+      width: 100%;
+      padding: 0.2rem;
+      font-family: "poppins", sans-serif;
+      margin-left: 5rem;
+
+      & h1 {
+        font-size: 1.8rem;
+        font-weight: 500;
+        color: $secondaryText;
+      }
+
+      & h2 {
+        color: $tertairyText;
+        font-size: 1.1rem;
+        font-weight: 500;
+      }
+
+      .rating {
+        @include flexProp(row, 1rem, flex-start);
+
+        .stars {
+          @include flexProp(row, 0.3rem, space-between);
+        }
+
+        .separator {
+          width: 0.1rem;
+          height: 1.3rem;
+          background-color: $hoverBtn;
+        }
+
+        .reviews {
+          font-size: 0.8rem;
+          color: $modalOn;
+        }
+      }
+
+      .summary {
+        font-size: 0.8rem;
+        color: $secondaryText;
+      }
+
+      .color-choices {
+        @include flexProp(column, 0.5rem, space-between);
+        align-items: flex-start;
+        margin-top: 1rem;
+
+        & p {
+          font-size: 0.9rem;
+          color: $tertairyText;
+        }
+
+        .pick-color {
+          @include flexProp(row, 0.4rem, flex-start);
+
+          & label {
+            position: relative;
+
+            & .color-select {
+              height: 2rem;
+              width: 2rem;
+              cursor: pointer;
+              appearance: none;
+            }
+
+            & .color-picker {
+              height: 2rem;
+              width: 2rem;
+              z-index: -1;
+              border-radius: 50%;
+              position: absolute;
+              top: 0;
+            }
+
+            & .color-select:checked + .color-picker {
+              border: 2px solid $bannerTitle;
+            }
+          }
+        }
+      }
+
+      .qty-container {
+        @include flexProp(row, 2rem, flex-start);
+        margin-top: 1rem;
+
+        & h2 {
+          text-transform: uppercase;
+          color: $secondaryText;
+          font-weight: 600;
+        }
+
+        .btn-qty-layout {
+          @include flexProp(row, 0.5rem, flex-start);
+          border: 1px solid $secondaryText;
+          border-radius: 5px;
+
+          & button {
+            padding: 0.5rem;
+            height: 2.5rem;
+            display: grid;
+            place-items: center;
+            border-radius: 5px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+          }
+
+          & p {
+            font-weight: 600;
+          }
+        }
+      }
+
+      .btns-container {
+        @include flexProp(row, 1.5rem, space-between);
+        width: 100%;
+        margin-top: 2.5rem;
+
+        .add-to-cart-btn {
+          @include useBtn2;
+          font-size: 1.2rem;
+          width: 50%;
+          padding: 0.6rem 1.6rem;
+          text-transform: uppercase;
+        }
+
+        .buy-now-btn {
+          @include useBtns;
+          font-size: 1.2rem;
+          width: 50%;
+          padding: 0.6rem 1.6rem;
+          text-transform: uppercase;
+          border: 2px solid $bannerTitle;
+        }
+      }
+    }
+  }
+}

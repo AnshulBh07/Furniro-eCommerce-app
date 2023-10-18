@@ -1,0 +1,52 @@
+@import "../sass/variables.scss";
+@import "../sass/mixins.scss";
+
+.container__mini-cart-card {
+  width: 100%;
+  @include flexProp(row, 0.2rem, space-between);
+
+  & img {
+    height: 4rem;
+    border-radius: 10px;
+  }
+
+  .product-info {
+    @include flexProp(column, 0.4rem, space-between);
+    font-family: "poppins", sans-serif;
+    font-size: 0.8rem;
+    align-items: flex-start;
+
+    & h3 {
+      font-weight: 600;
+      color: $secondaryText;
+    }
+
+    & p {
+      @include flexProp(row, 0.8rem, space-between);
+      color: $modalOn;
+
+      & .qty-minicart {
+        @include flexProp(row, 0.4rem, space-between);
+
+        & .qty-btn {
+          display: grid;
+          place-items: center;
+          font-weight: 600;
+          padding: 0.3rem;
+          border-radius: 3px;
+          width: 1.5rem;
+          border: 1px solid $hoverBtn;
+        }
+      }
+
+      & p {
+        font-weight: 600;
+      }
+
+      .minicart-product-amount {
+        font-weight: 600;
+        color: $bannerTitle;
+      }
+    }
+  }
+}

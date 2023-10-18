@@ -1,0 +1,28 @@
+@import "../sass/mixins.scss";
+@import "../sass/variables.scss";
+
+.store {
+  @include sectionProp;
+  padding-top: 0;
+
+  .mini-store {
+    @include flexProp(column, 2rem, space-between);
+    font-family: "poppins", sans-serif;
+
+    & h1 {
+      font-weight: 600;
+      font-size: 1.8rem;
+      color: $primaryText;
+      text-transform: capitalize;
+    }
+
+    & .show-more-btn {
+      @include useBtn2;
+    }
+
+    & .products {
+      @include gridProp(4, 2, 2rem);
+      width: 85%;
+    }
+  }
+}

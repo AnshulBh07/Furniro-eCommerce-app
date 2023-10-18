@@ -1,0 +1,55 @@
+@import "../sass/mixins.scss";
+@import "../sass/variables.scss";
+
+.browse-range {
+  @include sectionProp;
+
+  .container__range {
+    width: 100%;
+    @include flexProp(column, 0.7rem, space-between);
+    font-family: "poppins", sans-serif;
+
+    & h1 {
+      font-weight: 600;
+      font-size: 1.8rem;
+      color: $primaryText;
+      text-transform: capitalize;
+    }
+
+    & p {
+      color: $secondaryText;
+      margin-bottom: 3rem;
+    }
+
+    .varieties {
+      @include gridProp(3, 1, 1rem);
+      width: 80%;
+
+      & .type {
+        @include flexProp(column, 1rem, space-between);
+
+        .img__container {
+          height: 25rem;
+          width: 90%;
+          border: none;
+          cursor: pointer;
+          transition: 0.2s;
+
+          &:hover {
+            opacity: 0.6;
+          }
+
+          & img {
+            height: 100%;
+            width: 100%;
+            border-radius: 8px;
+          }
+        }
+
+        & p {
+          font-weight: 650;
+        }
+      }
+    }
+  }
+}

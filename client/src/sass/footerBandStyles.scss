@@ -1,0 +1,46 @@
+@import "../sass/variables.scss";
+@import "../sass/mixins.scss";
+
+.footer-band__section {
+  @include sectionProp;
+  padding: 3rem 5rem;
+  @include flexProp(row, 0rem, center);
+  background-color: $bannerBg;
+  font-family: "poppins", sans-serif;
+
+  .features {
+    width: 100%;
+    @include flexProp(row, 0rem, space-between);
+
+    .service {
+      @include flexProp(row, 1rem, space-between);
+
+      & .icon-div {
+        height: 3rem;
+        width: 3rem;
+        display: grid;
+        place-items: center;
+
+        .icon {
+          height: 100%;
+          width: 100%;
+          color: $secondaryText;
+        }
+      }
+
+      .info {
+        @include flexProp(column, 0rem, space-between);
+        align-items: flex-start;
+
+        & h2 {
+          color: $secondaryText;
+          font-weight: 550;
+        }
+
+        & p {
+          color: $tertairyText;
+        }
+      }
+    }
+  }
+}

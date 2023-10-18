@@ -1,0 +1,81 @@
+@import "../sass/variables.scss";
+@import "../sass/mixins.scss";
+
+.mini-cart {
+  width: 22rem;
+  height: 37rem;
+  background-color: $bgColor;
+  border: 1px solid $tertairyText;
+  position: absolute;
+  top: 0;
+  right: 0;
+  @include flexProp(column, 0.5rem, space-between);
+  padding: 1.5rem;
+  font-family: "poppins", sans-serif;
+  z-index: 12;
+
+  & h2 {
+    @include flexProp(row, 0rem, space-between);
+    width: 100%;
+    font-weight: 600;
+    font-size: 1.2rem;
+
+    & button {
+      color: $tertairyText;
+      padding: 0 0;
+      height: 2rem;
+      width: 2rem;
+
+      & .icon {
+        height: 50%;
+        width: 50%;
+      }
+    }
+  }
+
+  & hr {
+    height: 0.05rem;
+    width: 100%;
+    background-color: $hoverBtn;
+    border: none;
+  }
+
+  & .items {
+    width: 100%;
+    min-height: 70%;
+    overflow-y: auto;
+    @include flexProp(column, 1rem, flex-start);
+    align-items: flex-start;
+    position: relative;
+
+    &::-webkit-scrollbar {
+      visibility: hidden;
+    }
+  }
+
+  & .amount {
+    @include flexProp(row, 0rem, space-between);
+    width: 100%;
+    font-size: 0.8rem;
+    font-weight: 600;
+
+    & .total-amount {
+      color: $bannerTitle;
+    }
+  }
+
+  & .btns {
+    @include flexProp(row, 0rem, space-between);
+    width: 100%;
+
+    & button {
+      border: 1px solid $secondaryText;
+      border-radius: 30px;
+      padding: 0.3rem 1rem;
+
+      &:hover {
+        background-color: $hoverBtn;
+      }
+    }
+  }
+}

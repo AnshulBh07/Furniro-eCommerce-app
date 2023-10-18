@@ -1,0 +1,181 @@
+@import "../sass/variables.scss";
+@import "../sass/mixins.scss";
+
+.billing__section {
+  @include sectionProp;
+  padding: 5rem 15rem;
+
+  .billing-container {
+    width: 100%;
+    @include flexProp(column, 1rem, space-between);
+    align-items: flex-start;
+
+    & h1 {
+      font-family: "poppins", sans-serif;
+      font-size: 2rem;
+      text-transform: capitalize;
+      font-weight: 600;
+    }
+
+    & .billing-form {
+      @include flexProp(row, 7rem, space-between);
+      width: 100%;
+      height: 62rem;
+
+      & .inputs {
+        @include flexProp(column, 1.8rem, flex-start);
+        width: 45%;
+        align-items: flex-start;
+
+        .name {
+          @include flexProp(row, 1rem, space-between);
+          width: 100%;
+        }
+
+        & .input-field {
+          @include flexProp(column, 0.5rem, space-between);
+          align-items: flex-start;
+          width: 100%;
+
+          & label {
+            font-family: "poppins", sans-serif;
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: $primaryText;
+          }
+
+          & input {
+            padding: 0.7rem;
+            width: 100%;
+            height: 3.5rem;
+            border-radius: 5px;
+            border: 2px solid $hoverBtn;
+
+            &:focus {
+              outline: none;
+            }
+          }
+
+          & select {
+            padding: 0.8rem;
+            width: 100%;
+            border-radius: 5px;
+            border: 2px solid $hoverBtn;
+          }
+        }
+      }
+
+      & .place-order {
+        @include flexProp(column, 0.6rem, flex-start);
+        align-items: flex-start;
+        width: 45%;
+        height: 100%;
+        font-family: "poppins", sans-serif;
+
+        & .product-total {
+          @include flexProp(column, 0.6rem, space-between);
+          align-items: flex-start;
+          width: 100%;
+
+          & .headings {
+            text-transform: capitalize;
+            @include flexProp(row, 0rem, space-between);
+            width: 100%;
+            font-size: 1rem;
+          }
+
+          .items-list {
+            @include flexProp(column, 0.3rem, space-around);
+            width: 100%;
+            font-size: 0.9rem;
+            color: $tertairyText;
+
+            & li {
+              width: 100%;
+              @include flexProp(row, 0rem, space-between);
+            }
+          }
+
+          & .subtotal {
+            width: 100%;
+            @include flexProp(row, 0rem, space-between);
+            font-size: 0.9rem;
+            text-transform: capitalize;
+            font-weight: 500;
+          }
+
+          & .total-price {
+            width: 100%;
+            @include flexProp(row, 0rem, space-between);
+            text-transform: capitalize;
+            font-size: 0.9rem;
+            font-weight: 500;
+
+            & .sum {
+              font-size: 1rem;
+              color: $bannerTitle;
+              font-weight: 600;
+            }
+          }
+        }
+
+        & hr {
+          height: 0.1rem;
+          border: none;
+          background-color: $hoverBtn;
+          width: 100%;
+          margin-top: 1.5rem;
+        }
+
+        & .payment-method {
+          @include flexProp(column, 0.4rem, space-between);
+          width: 100%;
+          align-items: flex-start;
+
+          & p {
+            text-transform: capitalize;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: $primaryText;
+          }
+
+          & .radio-input {
+            @include flexProp(row, 1rem, flex-start);
+
+            & input {
+              background-color: $primaryText;
+            }
+
+            & label {
+              font-size: 0.9rem;
+              font-weight: 500;
+            }
+          }
+
+          & .extras {
+            width: 100%;
+
+            & p {
+              font-size: 0.9rem;
+              color: $tertairyText;
+              font-weight: 500;
+            }
+          }
+        }
+
+        & .policy {
+          width: 100%;
+          font-size: 0.9rem;
+          color: $secondaryText;
+        }
+
+        & .btn-place {
+          @include useBtn2;
+          align-self: center;
+          margin-top: 1.5rem;
+        }
+      }
+    }
+  }
+}

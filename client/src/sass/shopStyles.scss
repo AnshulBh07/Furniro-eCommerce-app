@@ -1,0 +1,7 @@
+@import "../sass/variables.scss";
+@import "../sass/mixins.scss";
+
+.container {
+  @include containerProp;
+  @include flexProp(column, 0rem, space-between);
+}

@@ -1,0 +1,57 @@
+@import "../sass/variables.scss";
+@import "../sass/mixins.scss";
+
+.container {
+  @include containerProp;
+
+  .product-header {
+    @include sectionProp;
+    background-color: $bannerBg;
+    font-family: "poppins", sans-serif;
+    text-transform: capitalize;
+    padding: 1rem 6rem;
+    margin-top: 5.4rem;
+
+    .path-container {
+      @include flexProp(row, 1rem, flex-start);
+
+      & p {
+        font-size: 0.9rem;
+      }
+
+      .separator {
+        width: 0.1rem;
+        height: 2rem;
+        background-color: $tertairyText;
+      }
+
+      & h3 {
+        font-size: 1rem;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .related-products__section {
+    @include sectionProp;
+    @include flexProp(column, 3rem, space-evenly);
+    font-family: "poppins", sans-serif;
+    border-top: 2px solid $hoverBtn;
+
+    & h1 {
+      font-size: 1.8rem;
+      text-transform: capitalize;
+      font-weight: 500;
+    }
+
+    .products-list {
+      width: 100%;
+      @include flexProp(row, 3rem, center);
+      flex-wrap: wrap;
+    }
+
+    .show-more-btn {
+      @include useBtn2;
+    }
+  }
+}

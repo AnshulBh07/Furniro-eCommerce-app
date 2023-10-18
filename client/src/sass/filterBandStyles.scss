@@ -1,0 +1,116 @@
+@import "../sass/mixins.scss";
+@import "../sass/variables.scss";
+
+.section__filter {
+  @include sectionProp;
+  padding: 1.5rem 5rem;
+  @include flexProp(row, 0rem, center);
+  background-color: $bannerBg;
+  font-family: "poppins", sans-serif;
+
+  & .options__container {
+    @include flexProp(row, 0rem, space-between);
+    width: 100%;
+    position: relative;
+
+    .filter-info {
+      @include flexProp(column, 0.5rem, space-between);
+      align-items: flex-start;
+
+      & h2 {
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: 1.1rem;
+      }
+
+      .filter-types {
+        @include flexProp(row, 1rem, space-between);
+
+        & .category {
+          & p {
+            @include sortFilterOption;
+          }
+
+          .category-submenu {
+            @include submenu;
+          }
+
+          &:hover .category-submenu {
+            visibility: visible;
+          }
+        }
+
+        & .price {
+          & p {
+            @include sortFilterOption;
+          }
+
+          .price-submenu {
+            @include submenu;
+          }
+
+          &:hover .price-submenu {
+            visibility: visible;
+          }
+        }
+      }
+    }
+
+    .sort-info {
+      @include flexProp(row, 2rem, space-between);
+
+      .show {
+        @include flexProp(row, 0.7rem, space-between);
+
+        & span {
+          background-color: $bgColor;
+          padding: 0.5rem;
+        }
+      }
+
+      .sort-by {
+        @include flexProp(column, 0rem, space-between);
+        align-items: flex-start;
+
+        & h2 {
+          font-weight: 500;
+          text-transform: uppercase;
+          font-size: 1.1rem;
+        }
+
+        & .sort-btn {
+          padding: 0.3rem 0.8rem;
+          background-color: $bgColor;
+          color: $secondaryText;
+          border: 1px solid $tertairyText;
+          border-radius: 3px;
+          font-family: "poppins", sans-serif;
+          cursor: pointer;
+          font-size: 0.8rem;
+          font-weight: 400;
+        }
+
+        & .sort-options {
+          @include flexProp(column, 0rem, space-between);
+          width: 100%;
+          border: 1px solid $primaryText;
+          display: none;
+
+          & button {
+            width: 100%;
+            padding: 0.4rem;
+            border: none;
+            color: $secondaryText;
+            background-color: $bgColor;
+            text-align: left;
+            cursor: pointer;
+
+            &:hover {
+              background-color: $hoverBtn;
+            }
+          }
+        }
+      }
+    }
+  }
+}

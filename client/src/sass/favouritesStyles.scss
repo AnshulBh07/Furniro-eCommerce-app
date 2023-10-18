@@ -1,0 +1,48 @@
+@import "../sass/variables.scss";
+@import "../sass/mixins.scss";
+
+.favourites__container {
+  width: 20rem;
+  height: 35rem;
+  background-color: $bgColor;
+  border: 1px solid $tertairyText;
+  position: absolute;
+  top: 0;
+  right: 0;
+  @include flexProp(column, 0.5rem, space-between);
+  padding: 1rem;
+  font-family: "poppins", sans-serif;
+  z-index: 12;
+
+  & h2 {
+    @include flexProp(row, 0rem, space-between);
+    width: 100%;
+    font-weight: 600;
+    font-size: 1.2rem;
+
+    & button {
+      color: $tertairyText;
+      padding: 0 0;
+      height: 2rem;
+      width: 2rem;
+
+      & .icon {
+        height: 50%;
+        width: 50%;
+      }
+    }
+  }
+
+  & hr {
+    height: 0.05rem;
+    width: 100%;
+    background-color: $hoverBtn;
+    border: none;
+  }
+
+  & .items {
+    width: 100%;
+    min-height: 90%;
+    overflow-y: auto;
+  }
+}

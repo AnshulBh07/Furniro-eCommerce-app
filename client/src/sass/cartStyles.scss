@@ -1,0 +1,69 @@
+@import "../sass/variables.scss";
+@import "../sass/mixins.scss";
+
+.cart-details__section {
+  @include sectionProp;
+  padding: 4rem 8rem;
+
+  & .cart-info {
+    width: 100%;
+    min-height: 20rem;
+
+    .cart-totals {
+      width: 30%;
+      min-height: 15rem;
+      padding: 2.5rem;
+      border-radius: 5px;
+      background-color: $bannerBg;
+      @include flexProp(column, 1rem, space-between);
+      font-family: "poppins", sans-serif;
+
+      & h2 {
+        text-transform: capitalize;
+        font-size: 1.8rem;
+        font-weight: 500;
+      }
+
+      .subtotal {
+        width: 100%;
+        @include flexProp(row, 0rem, space-between);
+        margin-top: 2rem;
+        font-size: 0.9rem;
+        text-transform: capitalize;
+
+        .field {
+          font-weight: 600;
+          color: $primaryText;
+        }
+
+        .value {
+          color: $tertairyText;
+        }
+      }
+
+      .total-price {
+        width: 100%;
+        @include flexProp(row, 0rem, space-between);
+        margin-top: 2rem;
+        font-size: 0.9rem;
+        text-transform: capitalize;
+        margin-bottom: 1rem;
+
+        .field {
+          font-weight: 600;
+          color: $primaryText;
+        }
+
+        .sum {
+          color: $bannerTitle;
+          font-size: 1rem;
+          font-weight: 700;
+        }
+      }
+
+      .btn-checkout {
+        @include useBtn2;
+      }
+    }
+  }
+}
