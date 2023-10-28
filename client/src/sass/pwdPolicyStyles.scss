@@ -1,0 +1,45 @@
+@import "../sass/variables.scss";
+@import "../sass/mixins.scss";
+
+.container__policy {
+  @include flexProp(column, 0rem, space-between);
+
+  .policy-icon {
+    height: 1.5rem;
+    width: 1.5rem;
+    color: $modalOn;
+    position: absolute;
+    left: 36%;
+    bottom: 52%;
+
+    &:hover + .policy-rules {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  .policy-rules {
+    @include flexProp(column, 0.5rem, space-around);
+    position: absolute;
+    background-color: #fff;
+    z-index: 5;
+    padding: 0.7rem;
+    box-shadow: 0 0 8px $hoverBtn;
+    border-radius: 10px;
+    top: 50%;
+    visibility: hidden;
+    opacity: 0;
+    transition: 1s;
+    left: 34%;
+
+    & h2 {
+      font-size: 0.8rem;
+      align-self: flex-start;
+      text-transform: capitalize;
+    }
+
+    & p {
+      font-size: 0.7rem !important;
+    }
+  }
+}

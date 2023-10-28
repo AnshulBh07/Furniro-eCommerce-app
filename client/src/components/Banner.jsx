@@ -1,8 +1,11 @@
 import React from "react";
 import BannerImg from "../assets/images/banner-img.jpg";
 import "../sass/bannerStyles.scss";
+import { useNavigate } from "react-router-dom";
 
 function Banner() {
+  const navigate = useNavigate();
+
   return (
     <section className="banner">
       <img src={`${BannerImg}`} alt="banner-img" />
@@ -12,7 +15,9 @@ function Banner() {
           discover our new <span>collection</span>
         </h2>
         <p>Stunning kitchen chairs with exquisite looks.</p>
-        <button className="btn buy-now">Buy Now</button>
+        <button className="btn buy-now" onClick={() => navigate("/shop")}>
+          Buy Now
+        </button>
       </div>
     </section>
   );

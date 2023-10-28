@@ -3,6 +3,7 @@
 
 .shop-items__section {
   @include sectionProp;
+  @include flexProp(column, 2rem, center);
 
   .items__container {
     width: 100%;
@@ -11,5 +12,65 @@
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: auto;
     justify-content: space-between;
+  }
+
+  .pagination-pill {
+    @include flexProp(row, 1rem, space-between);
+
+    .next-page-btn {
+      display: grid;
+      place-items: center;
+      height: 2.2rem;
+      width: 2.2rem;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+
+      .next-icon {
+        height: 1.7rem;
+        width: 1.7rem;
+        color: $hoverBtn;
+      }
+
+      &:hover .next-icon {
+        height: 1.5rem;
+        width: 1.5rem;
+      }
+
+      .prev-icon {
+        height: 1.7rem;
+        width: 1.7rem;
+        color: $hoverBtn;
+        transform: rotateY(180deg);
+      }
+
+      &:hover .prev-icon {
+        height: 1.5rem;
+        width: 1.5rem;
+      }
+    }
+
+    .pagination-btn {
+      width: 2rem;
+      height: 2rem;
+      font-family: "poppins", sans-serif;
+      text-align: center;
+      font-weight: 600;
+      border: 2px solid $bannerTitle;
+      background-color: transparent;
+      color: $bannerTitle;
+      cursor: pointer;
+      transition: 0.15s;
+
+      &:hover {
+        background-color: $bannerTitle;
+        color: $bgColor;
+      }
+    }
+
+    .btn-active {
+      background-color: $bannerTitle;
+      color: $bgColor;
+    }
   }
 }

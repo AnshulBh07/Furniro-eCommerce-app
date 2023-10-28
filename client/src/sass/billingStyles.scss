@@ -92,7 +92,11 @@
 
             & li {
               width: 100%;
-              @include flexProp(row, 0rem, space-between);
+              @include flexProp(row, 1rem, space-between);
+
+              .item-name {
+                width: 70%;
+              }
             }
           }
 

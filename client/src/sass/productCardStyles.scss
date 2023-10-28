@@ -57,6 +57,7 @@
       border-radius: 50%;
       cursor: pointer;
       left: 75%;
+      z-index: 3;
       background-color: $cardBg;
 
       .heart-empty {
@@ -94,7 +95,16 @@
         @include flexProp(row, 0rem, space-between);
         width: 100%;
 
+        .discounted {
+          @include flexProp(row, 0rem, flex-start);
+
+          .final-rupee-icon {
+            color: rgb(0, 159, 0);
+          }
+        }
+
         & .actual {
+          @include flexProp(row, 0rem, flex-start);
           color: $tertairyText;
           text-decoration: line-through;
         }

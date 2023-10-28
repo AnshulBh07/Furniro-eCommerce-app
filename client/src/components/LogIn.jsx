@@ -3,7 +3,6 @@ import "../sass/logInStyles.scss";
 import LoginImage from "../assets/images/bgImage6.jpg";
 import LampImage from "../assets/images/lamp.png";
 import Logo from "../assets/images/logo.png";
-import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import GoogleLogo from "../assets/images/googleLogo.png";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -71,13 +70,6 @@ function LogIn() {
                   setInput({ ...input, pwd: e.target.value });
                 }}
               />
-              <button className="show-pwd" onClick={handleShowPwd}>
-                {showPwd ? (
-                  <AiFillEye className="icon" />
-                ) : (
-                  <AiFillEyeInvisible className="icon" />
-                )}
-              </button>
             </div>
           </div>
         </div>
@@ -89,7 +81,7 @@ function LogIn() {
         <p>
           Don't have an account?{" "}
           <span>
-            <Link to="/signup">sign up</Link>
+            <Link to="/signUp">sign up</Link>
           </span>
         </p>
 

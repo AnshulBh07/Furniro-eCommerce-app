@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../sass/favouritesStyles.scss";
 import { AiOutlineClose } from "react-icons/ai";
 

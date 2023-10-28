@@ -1,48 +1,100 @@
 import React, { useState } from "react";
 import "../sass/productMainStyles.scss";
-import { BsStarFill, BsStarHalf } from "react-icons/bs";
-import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
+import {
+  AiOutlinePlus,
+  AiOutlineMinus,
+  AiOutlineHeart,
+  AiFillHeart,
+} from "react-icons/ai";
+import { rating } from "../services/getRating";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../actions/cartActions";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { BsCurrencyRupee } from "react-icons/bs";
+import { formatCurrency } from "../services/formatCurrency";
+import { addToFav } from "../actions/favsActions";
 
 function ProductMainInfo({ details }) {
-  console.log(details);
-  let ratingVal = details.overall_rating;
-  var stars = [];
+  const dispatch = useDispatch();
+  const items = useSelector((store) => store.cart.cartItems);
+  const favItems = useSelector((store) => store.favourites.favs);
 
-  for (var i = 0; i < 5; i++) {
-    if (ratingVal >= 1)
-      stars.push(
-        <BsStarFill
-          className="full-star"
-          style={{ color: "#ffc700" }}
-          key={i}
-        />
-      );
-    else if (ratingVal > 0 && ratingVal < 1)
-      stars.push(
-        <BsStarHalf
-          className="half-star"
-          style={{ color: "#ffc700" }}
-          key={i}
-        />
-      );
-    else
-      stars.push(
-        <BsStarFill
-          className="empty-star"
-          style={{ color: "#dfdfdf" }}
-          key={i}
-        />
-      );
-
-    ratingVal = ratingVal - 1;
-  }
+  const stars = rating(details.overall_rating);
 
   const colors = ["#b36902", "#0d0985", "#f7dea8", "#940000"];
 
   const [img, setImg] = useState(details.images[0]);
+  const [quantity, setQuantity] = useState(1);
 
   function handleOptionChange(e) {
     setImg(details.images[e.target.id]);
+  }
+
+  const showWarnToastMessage = (place) => {
+    toast.warn(`Item already present in ${place}! Please update it there.`, {
+      position: "top-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const showSuccessToastMessage = (place) => {
+    toast.success(`Item added to ${place}`, {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  function isPresentCart(items, details) {
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].sku === details.sku) return true;
+    }
+    return false;
+  }
+
+  function isPresentFav(items, val) {
+    for (var i = 0; i < items.length; i++) {
+      if (items[i] === val) return true;
+    }
+    return false;
+  }
+
+  const discounted_price = Math.round(
+    details.price - (details.discount_value / 100) * details.price
+  );
+
+  function handleAddToCart() {
+    if (isPresentCart(items, details)) showWarnToastMessage("cart");
+    else {
+      dispatch(
+        addToCart({
+          ...details,
+          discounted: discounted_price,
+          qty: quantity,
+        })
+      );
+      showSuccessToastMessage("cart");
+    }
+  }
+
+  function handleAddFavClick() {
+    if (isPresentFav(favItems, details.sku)) showWarnToastMessage("favourites");
+    else {
+      dispatch(addToFav(details.sku));
+      showSuccessToastMessage("favourites");
+    }
   }
 
   return (
@@ -72,7 +124,15 @@ function ProductMainInfo({ details }) {
 
         <div className="product-main-info">
           <h1>{details.title}</h1>
-          <h2>Rp. {details.price}</h2>
+          <div className="price-div">
+            <h2 className="final-price">
+              <BsCurrencyRupee className="final-rupee-icon" />{" "}
+              {formatCurrency(discounted_price)}
+            </h2>
+            <h2 className="actual-price">
+              <BsCurrencyRupee /> {formatCurrency(details.price)}
+            </h2>
+          </div>
           <div className="rating">
             <div className="stars">
               {/* assign stars with js logic */}
@@ -109,21 +169,48 @@ function ProductMainInfo({ details }) {
             </div>
           </div>
 
-          <div className="qty-container">
-            <h2>qty</h2>
-            <div className="btn-qty-layout">
-              <button>
-                <AiOutlineMinus />
-              </button>
-              <p>2</p>
-              <button>
-                <AiOutlinePlus />
-              </button>
+          <div className="qty-fav__container">
+            <div className="qty-container">
+              <h2>qty</h2>
+              <div className="btn-qty-layout">
+                <button
+                  onClick={() => setQuantity(quantity - 1)}
+                  disabled={quantity <= 1}
+                >
+                  <AiOutlineMinus />
+                </button>
+                <p>{quantity}</p>
+                <button onClick={() => setQuantity(quantity + 1)}>
+                  <AiOutlinePlus />
+                </button>
+              </div>
             </div>
+
+            <button className="btn-addFav" onClick={handleAddFavClick}>
+              {isPresentFav(favItems, details.sku) ? (
+                <AiFillHeart className="heart-full" />
+              ) : (
+                <AiOutlineHeart className="heart-empty" />
+              )}
+            </button>
           </div>
 
           <div className="btns-container">
-            <button className="add-to-cart-btn">add to cart</button>
+            <button className="add-to-cart-btn" onClick={handleAddToCart}>
+              add to cart
+            </button>
+            <ToastContainer
+              position="top-left"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
             <button className="buy-now-btn">buy now</button>
           </div>
         </div>

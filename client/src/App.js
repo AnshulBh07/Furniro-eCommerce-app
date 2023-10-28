@@ -11,28 +11,51 @@ import LogIn from "./components/LogIn";
 import ProductPage from "./components/ProductPage";
 import { useState, useEffect } from "react";
 import { getCardData } from "./services/ProductCardData";
+import { useSelector } from "react-redux";
+import SignUpform from "./components/SignUpform";
 
 function App() {
   const [hide, setHide] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [productsData, setProductsData] = useState([]);
 
   useEffect(() => {
     async function fetchProducts() {
       const result = await getCardData();
-      console.log(result);
-      setProductsData(result);
+      if (result && result.length > 0) {
+        setProductsData(result);
+        setIsLoading(false);
+      }
     }
 
     fetchProducts();
   }, []);
 
+  const cartState = useSelector((store) => store.cart);
+  const favSate = useSelector((store) => store.favourites);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartState));
+    localStorage.setItem("favList", JSON.stringify(favSate));
+  }, [cartState, favSate]);
+
+  // useEffect(() => {
+  //   localStorage.removeItem("cart");
+  // }, []);
+
   return (
     <div className="App">
       {!hide && <Header setHide={setHide} />}
       <Routes>
-        <Route index element={<Home data={productsData} />}></Route>
+        <Route
+          path="/"
+          element={<Home data={productsData} isLoading={isLoading} />}
+        ></Route>
 
-        <Route path="/shop" element={<Shop data={productsData} />}></Route>
+        <Route
+          path="/shop"
+          element={<Shop data={productsData} isLoading={isLoading} />}
+        ></Route>
 
         <Route path="/contact" element={<Contact />} />
 
@@ -40,7 +63,10 @@ function App() {
 
         <Route path="/cart" element={<ShoppingCart />} />
         <Route path="/products/:sku" element={<ProductPage />} />
+        <Route path="shop/products/:sku" element={<ProductPage />} />
+
         <Route path="/login" element={<LogIn />} />
+        <Route path="/signUp" element={<SignUpform />} />
         <Route path="*" element={<h1>Route not found</h1>} />
       </Routes>
       {!hide && <Footer />}

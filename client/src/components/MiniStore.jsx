@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "../sass/homeStoreStyles.scss";
 import ProductCard from "./ProductCard";
-import { useQuery } from "@tanstack/react-query";
-import { getCardData } from "../services/ProductCardData";
+import { useNavigate } from "react-router-dom";
 
 function MiniStore({ data }) {
   data = data.sort(() => Math.random() - 0.5);
   data = data.slice(0, 8);
+  const navigate = useNavigate();
 
   return (
     <section className="store">
@@ -18,7 +18,15 @@ function MiniStore({ data }) {
             return <ProductCard item={item} key={item.sku} />;
           })}
         </div>
-        <button className="show-more-btn">show more</button>
+        <button
+          className="show-more-btn"
+          onClick={() => {
+            navigate("/shop");
+            window.scrollTo(0, 0);
+          }}
+        >
+          show more
+        </button>
       </div>
     </section>
   );

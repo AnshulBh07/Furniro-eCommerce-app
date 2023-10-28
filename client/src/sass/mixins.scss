@@ -91,20 +91,17 @@
 }
 
 @mixin submenu {
-  width: 10rem;
-  padding: 0.7rem 1rem;
-  font-size: 0.8rem;
   list-style-type: none;
-  @include flexProp(column, 0.5rem, space-between);
-  align-items: flex-start;
   background-color: $bgColor;
-  border-radius: 3px;
+  width: 15%;
+  border-radius: 5px;
+  padding: 1rem 0;
+  z-index: 3;
   border: 1px solid $primaryText;
   position: absolute;
   top: 120%;
-  z-index: 2;
   visibility: hidden;
-  transition: 0.1s;
+  transition: 0.15s;
 
   // tooltip
   &::before {
@@ -114,18 +111,18 @@
     width: 1rem;
     position: absolute;
     transform: rotateZ(45deg);
-    top: -5%;
-    left: 12%;
+    top: -2.7%;
+    left: 20%;
     border: 1px solid $primaryText;
   }
 
   &::after {
     content: "";
     background-color: $bgColor;
-    height: 0.8rem;
+    height: 1rem;
     width: 1.5rem;
     position: absolute;
-    left: 10%;
-    top: 0.6%;
+    left: 18%;
+    top: -0.2%;
   }
 }

@@ -33,6 +33,21 @@
 
           .category-submenu {
             @include submenu;
+
+            .category-btn {
+              width: 100%;
+              font-family: "poppins", sans-serif;
+              text-transform: capitalize;
+              padding: 0.2rem 0;
+              background-color: transparent;
+              cursor: pointer;
+              border: none;
+
+              &:hover {
+                background-color: $bannerTitle;
+                color: $bgColor;
+              }
+            }
           }
 
           &:hover .category-submenu {
@@ -50,6 +65,34 @@
           }
 
           &:hover .price-submenu {
+            visibility: visible;
+          }
+        }
+
+        & .room-type {
+          & p {
+            @include sortFilterOption;
+          }
+
+          .room-type-submenu {
+            @include submenu;
+
+            .room-type-btn {
+              width: 100%;
+              font-family: "poppins", sans-serif;
+              text-transform: capitalize;
+              padding: 0.2rem 0;
+              background-color: transparent;
+              cursor: pointer;
+              border: none;
+
+              &:hover {
+                background-color: $bannerTitle;
+                color: $bgColor;
+              }
+            }
+          }
+          &:hover .room-type-submenu {
             visibility: visible;
           }
         }
@@ -78,36 +121,32 @@
           font-size: 1.1rem;
         }
 
-        & .sort-btn {
-          padding: 0.3rem 0.8rem;
-          background-color: $bgColor;
-          color: $secondaryText;
-          border: 1px solid $tertairyText;
-          border-radius: 3px;
-          font-family: "poppins", sans-serif;
-          cursor: pointer;
-          font-size: 0.8rem;
-          font-weight: 400;
-        }
+        // & .sort-btn {
+        //   padding: 0.3rem 0.8rem;
+        //   background-color: $bgColor;
+        //   color: $secondaryText;
+        //   border: 1px solid $tertairyText;
+        //   border-radius: 3px;
+        //   font-family: "poppins", sans-serif;
+        //   cursor: pointer;
+        //   font-size: 0.8rem;
+        //   font-weight: 400;
+        // }
 
         & .sort-options {
-          @include flexProp(column, 0rem, space-between);
           width: 100%;
+          padding: 0.2rem;
           border: 1px solid $primaryText;
-          display: none;
+          cursor: pointer;
+          border-radius: 1px;
 
-          & button {
+          & option {
             width: 100%;
             padding: 0.4rem;
             border: none;
             color: $secondaryText;
             background-color: $bgColor;
             text-align: left;
-            cursor: pointer;
-
-            &:hover {
-              background-color: $hoverBtn;
-            }
           }
         }
       }

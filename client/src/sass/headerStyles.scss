@@ -58,6 +58,31 @@ header {
   .options {
     @include flexProp(row, 0.8rem, space-between);
 
+    .search-bar {
+      padding: 0.4rem 0.6rem;
+      border: 1px solid $modalOn;
+      border-radius: 15px;
+      font-size: 0.9rem;
+      color: $primaryText;
+      display: none;
+      position: absolute;
+    }
+
+    .search-bar::placeholder {
+      text-transform: capitalize;
+      font-size: 0.8rem;
+      color: $modalOn;
+    }
+
+    .search-visible {
+      animation: searchAnimation 0.8s ease-in-out forwards;
+      display: block;
+    }
+
+    .search-bar:focus {
+      outline: none;
+    }
+
     button {
       @include iconBtn;
       display: grid;
@@ -74,17 +99,18 @@ header {
         width: 1.4rem;
       }
 
-      span {
+      .no-of-items {
         height: 50%;
         width: 50%;
-        background-color: transparent;
-        border: 2px solid $primaryText;
+        background-color: $spinner2;
+        color: #fff;
         border-radius: 4px;
         position: absolute;
-        text-align: center;
         font-weight: 600;
         left: 90%;
-        visibility: hidden;
+        display: grid;
+        place-items: center;
+        visibility: visible;
       }
     }
   }
@@ -98,5 +124,19 @@ header {
     top: 0;
     opacity: 0.4;
     left: 0;
+  }
+}
+
+@keyframes searchAnimation {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(-105%);
+    opacity: 1;
   }
 }

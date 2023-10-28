@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "../sass/billingStyles.scss";
 import CountrySelect from "./CountrySelect";
+import { useSelector } from "react-redux";
+import { formatCurrency } from "../services/formatCurrency";
 
 function BillingForm() {
   const [billing, setBilling] = useState({
@@ -15,6 +17,11 @@ function BillingForm() {
     phone: "",
     email: "",
   });
+
+  const [option, setOption] = useState("");
+
+  const items = useSelector((store) => store.cart.cartItems);
+  const total = useSelector((store) => store.cart.cartTotal);
 
   return (
     <section className="billing__section">
@@ -182,18 +189,26 @@ function BillingForm() {
                 <h3>subtotal</h3>
               </div>
               <ul className="items-list">
-                <li>
-                  <p>Asgaard Sofa x 1</p>
-                  <p>Rp 120.000</p>
-                </li>
+                {items.map((item) => {
+                  return (
+                    <li key={item.sku}>
+                      <p className="item-name">
+                        {item.title} x {item.qty}
+                      </p>
+                      <p className="item-price">
+                        Rp {formatCurrency(item.discounted * item.qty)}
+                      </p>
+                    </li>
+                  );
+                })}
               </ul>
               <div className="subtotal">
                 <p>subtotal</p>
-                <p>Rp 120.000</p>
+                <p>Rp {formatCurrency(total)}</p>
               </div>
               <div className="total-price">
                 <p>total</p>
-                <p className="sum">Rp 120.000</p>
+                <p className="sum">Rp {formatCurrency(total)}</p>
               </div>
             </div>
 
@@ -209,29 +224,40 @@ function BillingForm() {
                   id="direct-transfer"
                   name="radio-btn"
                   value={"Direct Transfer"}
+                  onChange={(e) => setOption(e.target.id)}
                 />
                 <label htmlFor="direct-transfer">Direct Bank Transfer</label>
               </div>
 
-              <div className="extras">
-                <p>
-                  Make your payments directly into our bank account. Please use
-                  your Order ID as the payment reference. Your order will not be
-                  shipped untill the funds have cleared in our account.
-                </p>
-              </div>
+              {option === "direct-transfer" && (
+                <div className="extras">
+                  <p>
+                    Make your payments directly into our bank account. Please
+                    use your Order ID as the payment reference. Your order will
+                    not be shipped untill the funds have cleared in our account.
+                  </p>
+                </div>
+              )}
 
               <div className="radio-input">
-                <input type="radio" id="cod" name="radio-btn" value={"cod"} />
+                <input
+                  type="radio"
+                  id="cod"
+                  name="radio-btn"
+                  value={"cod"}
+                  onChange={(e) => setOption(e.target.id)}
+                />
                 <label htmlFor="cod">Cash On Delivery</label>
               </div>
 
-              <div className="extras">
-                <p>
-                  Simply pay when the product is at your door step. Please do
-                  not provide any delivery fee to the person visiting.
-                </p>
-              </div>
+              {option === "cod" && (
+                <div className="extras">
+                  <p>
+                    Simply pay when the product is at your door step. Please do
+                    not provide any delivery fee to the person visiting.
+                  </p>
+                </div>
+              )}
             </div>
 
             <div className="policy">

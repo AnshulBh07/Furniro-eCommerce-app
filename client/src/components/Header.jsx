@@ -12,12 +12,26 @@ import MiniCart from "./MiniCart";
 import Favourites from "./Favourites";
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useSelector } from "react-redux";
 
 function Header({ setHide }) {
   const [showCart, setShowCart] = useState(false);
   const [favourites, setFavourites] = useState(false);
+  const [search, setSearch] = useState("");
   const navigate = useNavigate();
+  const [searchClick, setSearchClick] = useState(false);
   const { user, isAuthenticated, logout } = useAuth0();
+
+  const cartItems = useSelector((store) => store.cart.cartItems);
+
+  function handleSearch(e) {
+    setSearch(e.target.value);
+    console.log(search);
+  }
+
+  function handleSearchClick() {
+    setSearchClick(!searchClick);
+  }
 
   return (
     <header>
@@ -63,15 +77,30 @@ function Header({ setHide }) {
             <AiOutlineUser className="option-icon" />
           )}
         </button>
+        <input
+          type="text"
+          placeholder="enter keyword"
+          name="search-bar"
+          value={search}
+          onChange={handleSearch}
+          className={`search-bar ${searchClick ? "search-visible" : ""}`}
+        />
         <button>
-          <AiOutlineSearch className="option-icon" />
+          <AiOutlineSearch
+            className="option-icon"
+            onClick={handleSearchClick}
+          />
         </button>
         <button onClick={() => setFavourites(true)}>
           <AiOutlineHeart className="option-icon" />
         </button>
         <button onClick={() => setShowCart(true)}>
           <AiOutlineShoppingCart className="option-icon" />
-          <span className="no-of-items"></span>
+          {cartItems.length > 0 && (
+            <p className="no-of-items">
+              <span>{cartItems.length}</span>
+            </p>
+          )}
         </button>
 
         {/* mini cart only visible when toggled by cart icon */}

@@ -16,6 +16,8 @@ export const getCardData = async () => {
         images,
         title,
         tags,
+        category,
+        room_type,
       } = item;
 
       const [image, , ,] = images;
@@ -30,6 +32,8 @@ export const getCardData = async () => {
         new: New,
         title,
         tag,
+        category,
+        room_type,
       };
     });
     return ans;

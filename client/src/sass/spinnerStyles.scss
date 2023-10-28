@@ -1,0 +1,84 @@
+@import "../sass/variables.scss";
+@import "../sass/mixins.scss";
+
+.spinner__section {
+  @include sectionProp;
+  @include flexProp(row, 0rem, center);
+  min-height: 80vh;
+
+  .container__spinner {
+    @include flexProp(row, 0.6rem, space-around);
+    animation: animateContainer 2s linear infinite;
+
+    .circle-left {
+      height: 1rem;
+      width: 1rem;
+      border-radius: 50%;
+      background-color: $spinner1;
+      animation: animateCircleLeft 1.5s ease-in-out infinite;
+    }
+
+    .circle-mid {
+      height: 1rem;
+      width: 1rem;
+      border-radius: 50%;
+      z-index: 2;
+      background-color: $spinner3;
+      animation: animateCircleMid 1.5s ease-in-out infinite;
+    }
+
+    .circle-right {
+      height: 1rem;
+      width: 1rem;
+      border-radius: 50%;
+      background-color: $spinner2;
+      animation: animateCircleRight 1.5s ease-in-out infinite;
+    }
+  }
+}
+
+@keyframes animateCircleLeft {
+  0% {
+    transform: translateX(0%);
+  }
+  50% {
+    transform: translateX(160%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes animateCircleRight {
+  0% {
+    transform: translateX(0%);
+  }
+  50% {
+    transform: translateX(-160%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes animateCircleMid {
+  0% {
+  }
+  50% {
+    height: 1.5rem;
+    width: 1.5rem;
+    background-color: $spinner4;
+  }
+  100% {
+  }
+}
+
+@keyframes animateContainer {
+  0% {
+    transform: rotateZ(0deg);
+  }
+
+  100% {
+    transform: rotateZ(360deg);
+  }
+}

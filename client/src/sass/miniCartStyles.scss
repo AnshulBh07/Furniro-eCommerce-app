@@ -2,7 +2,7 @@
 @import "../sass/mixins.scss";
 
 .mini-cart {
-  width: 22rem;
+  width: 23rem;
   height: 37rem;
   background-color: $bgColor;
   border: 1px solid $tertairyText;
@@ -61,6 +61,7 @@
 
     & .total-amount {
       color: $bannerTitle;
+      @include flexProp(row, 0rem, space-between);
     }
   }
 

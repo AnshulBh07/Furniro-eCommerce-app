@@ -1,51 +1,29 @@
-import React, { useState } from "react";
+import React from "react";
 import "../sass/productCardStyles.scss";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import { BsStarFill, BsStarHalf } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import { rating } from "../services/getRating";
+import { useSelector } from "react-redux";
+import { BsCurrencyRupee } from "react-icons/bs";
+import { formatCurrency } from "../services/formatCurrency";
 
 function ProductCard({ item }) {
-  const [heart, setHeart] = useState(false);
   const navigate = useNavigate();
 
-  function handleFavouriteClick() {
-    setHeart(!heart);
-  }
-
   let ratingVal = item.overall_rating;
-  var stars = [];
-
-  for (var i = 0; i < 5; i++) {
-    if (ratingVal >= 1)
-      stars.push(
-        <BsStarFill
-          className="full-star"
-          style={{ color: "#ffc700" }}
-          key={i}
-        />
-      );
-    else if (ratingVal > 0 && ratingVal < 1)
-      stars.push(
-        <BsStarHalf
-          className="half-star"
-          style={{ color: "#ffc700" }}
-          key={i}
-        />
-      );
-    else
-      stars.push(
-        <BsStarFill
-          className="empty-star"
-          style={{ color: "#dfdfdf" }}
-          key={i}
-        />
-      );
-
-    ratingVal = ratingVal - 1;
-  }
+  var stars = rating(ratingVal);
 
   function handleClick() {
     navigate(`products/${item.sku}`);
+  }
+
+  const favItems = useSelector((store) => store.favourites.favs);
+
+  function isPresentFav(favItems, val) {
+    for (var i = 0; i < favItems.length; i++) {
+      if (favItems[i] === val) return true;
+    }
+    return false;
   }
 
   return (
@@ -59,8 +37,8 @@ function ProductCard({ item }) {
           </div>
         </div>
 
-        <div className="favourites" onClick={handleFavouriteClick}>
-          {heart ? (
+        <div className="favourites">
+          {isPresentFav(favItems, item.sku) ? (
             <AiFillHeart className="heart-fill" />
           ) : (
             <AiOutlineHeart className="heart-empty" />
@@ -80,12 +58,18 @@ function ProductCard({ item }) {
           <p>{item.tag}</p>
           <div className="price">
             <h3 className="discounted">
-              Rp{" "}
-              {Math.round(
-                item.price - (item.discount_value / 100) * item.price
+              <BsCurrencyRupee className="final-rupee-icon" />{" "}
+              {formatCurrency(
+                Math.round(
+                  item.price - (item.discount_value / 100) * item.price
+                )
               )}
             </h3>
-            <h3 className="actual">Rp {item.price}</h3>
+            <h3 className="actual">
+              {" "}
+              <BsCurrencyRupee className="actual-rupee-icon" />{" "}
+              {formatCurrency(item.price)}
+            </h3>
           </div>
         </div>
       </button>

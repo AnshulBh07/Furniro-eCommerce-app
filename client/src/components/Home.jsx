@@ -5,13 +5,14 @@ import BrowseRange from "./BrowseRange";
 import MiniStore from "./MiniStore";
 import Collage from "./Collage";
 import FooterBand from "./FooterBand";
+import Spinner from "./Spinner";
 
-function Home({ data }) {
+function Home({ data, isLoading }) {
   return (
     <div className="container container__home">
       <Banner />
       <BrowseRange />
-      <MiniStore data={data} />
+      {isLoading ? <Spinner /> : <MiniStore data={data} />}
       <Collage />
       <FooterBand />
     </div>

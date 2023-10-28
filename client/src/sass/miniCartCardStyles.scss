@@ -3,10 +3,11 @@
 
 .container__mini-cart-card {
   width: 100%;
-  @include flexProp(row, 0.2rem, space-between);
+  @include flexProp(row, 0.5rem, space-between);
 
   & img {
     height: 4rem;
+    max-width: 4rem;
     border-radius: 10px;
   }
 
@@ -18,10 +19,11 @@
 
     & h3 {
       font-weight: 600;
+      font-size: 0.7rem;
       color: $secondaryText;
     }
 
-    & p {
+    & .minicart-item {
       @include flexProp(row, 0.8rem, space-between);
       color: $modalOn;
 
@@ -39,13 +41,14 @@
         }
       }
 
-      & p {
+      & .minicart-item-qty {
         font-weight: 600;
       }
 
       .minicart-product-amount {
         font-weight: 600;
         color: $bannerTitle;
+        @include flexProp(row, 0rem, space-between);
       }
     }
   }

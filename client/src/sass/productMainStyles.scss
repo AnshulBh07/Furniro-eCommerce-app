@@ -42,6 +42,7 @@
     .bigger-image {
       & img {
         max-height: 35rem;
+        max-width: 35rem;
         border-radius: 8px;
       }
     }
@@ -61,10 +62,27 @@
         color: $secondaryText;
       }
 
-      & h2 {
-        color: $tertairyText;
-        font-size: 1.1rem;
-        font-weight: 500;
+      .price-div {
+        @include flexProp(row, 4rem, flex-start);
+
+        .final-price {
+          font-size: 1.2rem;
+          font-weight: 600;
+          color: $secondaryText;
+          @include flexProp(row, 0rem, space-between);
+
+          .final-rupee-icon {
+            color: rgb(0, 159, 0);
+          }
+        }
+
+        .actual-price {
+          font-size: 1.2rem;
+          font-weight: 600;
+          color: $tertairyText;
+          text-decoration: line-through;
+          @include flexProp(row, 0rem, space-between);
+        }
       }
 
       .rating {
@@ -130,34 +148,63 @@
         }
       }
 
-      .qty-container {
-        @include flexProp(row, 2rem, flex-start);
-        margin-top: 1rem;
+      .qty-fav__container {
+        @include flexProp(row, 0rem, space-between);
+        width: 100%;
 
-        & h2 {
-          text-transform: uppercase;
-          color: $secondaryText;
-          font-weight: 600;
-        }
+        .btn-addFav {
+          height: 2.5rem;
+          width: 2.5rem;
+          display: grid;
+          place-items: center;
+          margin-top: 1rem;
+          border: none;
+          background-color: transparent;
+          cursor: pointer;
 
-        .btn-qty-layout {
-          @include flexProp(row, 0.5rem, flex-start);
-          border: 1px solid $secondaryText;
-          border-radius: 5px;
-
-          & button {
-            padding: 0.5rem;
-            height: 2.5rem;
-            display: grid;
-            place-items: center;
-            border-radius: 5px;
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
+          .heart-empty {
+            height: 2rem;
+            width: 2rem;
+            color: $modalOn;
           }
 
-          & p {
+          .heart-full {
+            height: 2rem;
+            width: 2rem;
+            color: #d12308;
+          }
+        }
+
+        .qty-container {
+          @include flexProp(row, 2rem, flex-start);
+          margin-top: 1rem;
+
+          & h2 {
+            text-transform: uppercase;
+            color: $secondaryText;
             font-weight: 600;
+          }
+
+          .btn-qty-layout {
+            @include flexProp(row, 0.5rem, space-between);
+            border: 1px solid $secondaryText;
+            border-radius: 5px;
+            width: 6rem;
+
+            & button {
+              padding: 0.5rem;
+              height: 2.5rem;
+              display: grid;
+              place-items: center;
+              border-radius: 5px;
+              background-color: transparent;
+              border: none;
+              cursor: pointer;
+            }
+
+            & p {
+              font-weight: 600;
+            }
           }
         }
       }

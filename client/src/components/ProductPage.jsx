@@ -6,6 +6,7 @@ import { getProductDetails } from "../services/productDetails";
 import ProductMainInfo from "./ProductMainInfo";
 import { getRelatedProducts } from "../services/relatedProducts";
 import ProductCard from "./ProductCard";
+import Spinner from "./Spinner";
 
 function ProductPage() {
   const { sku } = useParams();
@@ -65,11 +66,7 @@ function ProductPage() {
       </section>
 
       {/* main description */}
-      {isLoading ? (
-        <h1>Loading data</h1>
-      ) : (
-        <ProductMainInfo details={productDetail} />
-      )}
+      {isLoading ? <Spinner /> : <ProductMainInfo details={productDetail} />}
 
       {/* extra information */}
 

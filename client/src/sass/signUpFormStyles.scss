@@ -1,0 +1,147 @@
+@import "../sass/variables.scss";
+@import "../sass/mixins.scss";
+
+.container__sign-up {
+  width: 100%;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: row-reverse;
+  overflow: hidden;
+  justify-content: space-between;
+
+  .img-part {
+    width: 60%;
+    height: 100%;
+
+    & img {
+      height: 100vh;
+      width: 100%;
+    }
+  }
+
+  .form-part {
+    @include flexProp(row, 0rem, center);
+    width: 40%;
+    padding: 4.5rem 5rem;
+    font-family: "poppins", sans-serif;
+
+    .signUp-form {
+      @include flexProp(column, 1.5rem, space-between);
+      width: 100%;
+
+      & h1 {
+        font-family: "poppins", sans-serif;
+        width: 100%;
+        align-self: flex-start;
+        color: $primaryText;
+        font-size: 2.5rem;
+        font-weight: 600;
+        text-transform: capitalize;
+      }
+
+      & label {
+        @include flexProp(row, 0rem, space-between);
+        width: 100%;
+
+        & input {
+          width: 100%;
+          position: relative;
+          padding: 1rem 3.4rem;
+          border-radius: 10px;
+          font-size: 1.1rem;
+          border: 2px solid $modalOn;
+          color: $secondaryText;
+          background-color: $bannerBg;
+          border: none;
+
+          &:focus {
+            outline: none;
+          }
+
+          &::placeholder {
+            color: $modalOn;
+            text-transform: capitalize;
+            font-size: 0.9rem;
+          }
+        }
+
+        & span {
+          position: absolute;
+          display: grid;
+          place-items: center;
+          left: 6.3%;
+
+          .icon {
+            height: 1.5rem;
+            width: 1.5rem;
+            color: $bannerTitle;
+          }
+        }
+      }
+
+      & p {
+        font-size: 0.8rem;
+        font-weight: 500;
+        align-self: flex-start;
+
+        & span {
+          font-weight: 600;
+          text-transform: capitalize;
+
+          & a {
+            text-decoration: none;
+            color: $bannerTitle;
+          }
+        }
+      }
+
+      .btn-signUp {
+        @include useBtns;
+        width: 100%;
+        border-radius: 10px;
+      }
+
+      .separator {
+        height: 0.1rem;
+        width: 60%;
+        background-color: $modalOn;
+        position: relative;
+        @include flexProp(row, 0rem, space-between);
+
+        & span {
+          text-transform: uppercase;
+          font-size: 0.9rem;
+          color: $modalOn;
+          background-color: #fff;
+          width: 2rem;
+          text-align: center;
+          position: absolute;
+          left: 44%;
+        }
+      }
+
+      .google-btn {
+        width: 100%;
+        background-color: $bgColor;
+        border-radius: 10px;
+        border: 2px solid $bannerTitle;
+        @include flexProp(row, 1rem, center);
+        padding: 0.5rem;
+        cursor: pointer;
+
+        .google-logo {
+          height: 2rem;
+          width: 2rem;
+        }
+
+        & p {
+          width: 40%;
+          align-self: center;
+          text-transform: capitalize;
+          color: $secondaryText;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
