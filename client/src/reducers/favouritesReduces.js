@@ -11,7 +11,7 @@ export const favReducer = (state = initialState, action) => {
       return {
         ...state,
         favs: state.favs.filter((item) => {
-          return item !== action.payload;
+          return item.sku !== action.payload.sku;
         }),
       };
     default:

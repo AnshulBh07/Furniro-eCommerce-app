@@ -1,0 +1,48 @@
+@import "../sass/variables.scss";
+@import "../sass/mixins.scss";
+
+.container__fav-card {
+  width: 100%;
+  @include flexProp(row, 0.5rem, space-between);
+  font-family: "poppins", sans-serif;
+
+  & img {
+    height: 4rem;
+    width: 4rem;
+    border-radius: 5px;
+  }
+
+  & p {
+    font-size: 0.7rem;
+    font-weight: 500;
+  }
+
+  .btn-add-cart {
+    border: 2px solid $modalOn;
+    font-size: 0.6rem;
+    width: 9rem;
+    color: $modalOn;
+    border-radius: 5px;
+    text-transform: capitalize;
+
+    &:hover {
+      border: 2px solid $bannerTitle;
+      color: $bannerTitle;
+    }
+  }
+
+  .btn-remove-fav {
+    border: 2px solid $spinner3;
+    font-size: 0.6rem;
+    width: 9rem;
+    background-color: $spinner3;
+    color: #fff;
+    border-radius: 5px;
+    text-transform: capitalize;
+
+    &:hover {
+      background-color: #d12308;
+      border-color: #d12308;
+    }
+  }
+}

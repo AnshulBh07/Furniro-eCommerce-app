@@ -6,6 +6,8 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { store } from "./store";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "./reactQueryHome";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -18,7 +20,9 @@ root.render(
   >
     <BrowserRouter>
       <Provider store={store}>
-        <App />
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
       </Provider>
     </BrowserRouter>
   </Auth0Provider>

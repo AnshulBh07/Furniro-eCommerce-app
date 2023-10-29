@@ -63,44 +63,4 @@ app.get("/room_types", async (req, res) => {
   );
 });
 
-app.post("/signUp_form", async (req, res) => {
-  const name = tokenizeString(req.body.username);
-  const password = md5(req.body.pwd1);
-  const email = req.body.email;
-  var isPresent;
-
-  console.log(name + " " + password + " " + email);
-  // we execute 2 queries here to update our tables
-  // first query to check wther a user is already present with a given account
-  pool.query(`select * from users where email = '${email}'`, (result, err) => {
-    if (err) throw err;
-    console.log(result.rows[0]);
-    isPresent = result.rows[0];
-  });
-
-  // other queries to update in table
-  // if isPresent is undefined insert (undefined !== null)
-  if (isPresent) res.send("Account already registered.");
-  else {
-    pool.query(
-      `insert into users(firstname,lastname,email) values($1,$2,$3)`,
-      [name[0], name.length > 1 ? name[1] : name[0], email],
-      (err) => {
-        if (err) throw err;
-      }
-    );
-  }
-
-  // now fetch uuid from users and insert pass in credentials
-  var user;
-  pool.query(
-    `insert into credentials(hasher,password_hash) values($1,$2)`,
-    ["md5", password],
-    (err, result) => {
-      if (err) throw err;
-      console.log(result.rows[0]);
-    }
-  );
-});
-
 app.listen(port, () => console.log(`Server started at port ${port}`));

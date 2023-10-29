@@ -3,34 +3,17 @@ import ProductCard from "./ProductCard";
 import "../sass/shopItemsStyles.scss";
 import { usePagination } from "../custom-Hooks/Pagination";
 import { FaGreaterThan } from "react-icons/fa";
+import { useSearchParams } from "react-router-dom";
 
-function ShopItems({ data, searchParam, setSearchParam }) {
+function ShopItems({ data }) {
+  const [searchParam, setSearchParam] = useSearchParams();
+
   useEffect(() => {
     if (searchParam.get("page") === null) {
       searchParam.set("page", "1");
       setSearchParam(searchParam);
     }
   }, [searchParam, setSearchParam]);
-
-  // filter by category
-  var filterVal = searchParam.get("category");
-
-  if (filterVal !== null) {
-    filterVal = filterVal.toLowerCase();
-    data = data.filter((item) => {
-      return item.category === filterVal;
-    });
-  }
-
-  // filter by room type
-  filterVal = searchParam.get("room_type");
-
-  if (filterVal !== null) {
-    filterVal = filterVal.toLowerCase();
-    data = data.filter((item) => {
-      return item.room_type === filterVal;
-    });
-  }
 
   const currPage = Number(searchParam.get("page"));
 

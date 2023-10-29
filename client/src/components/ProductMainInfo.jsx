@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../sass/productMainStyles.scss";
 import {
   AiOutlinePlus,
@@ -9,11 +9,12 @@ import {
 import { rating } from "../services/getRating";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../actions/cartActions";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BsCurrencyRupee } from "react-icons/bs";
 import { formatCurrency } from "../services/formatCurrency";
 import { addToFav } from "../actions/favsActions";
+import { showSuccesToast, showWarnToast } from "../services/toastMessages";
 
 function ProductMainInfo({ details }) {
   const dispatch = useDispatch();
@@ -24,38 +25,31 @@ function ProductMainInfo({ details }) {
 
   const colors = ["#b36902", "#0d0985", "#f7dea8", "#940000"];
 
-  const [img, setImg] = useState(details.images[0]);
+  const [img, setImg] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [sofaSeats, setSofaSeats] = useState(1);
+  const [isSofa, setIsSofa] = useState(false);
+
+  // whenever there is a change in details a new image is set
+  useEffect(() => {
+    setImg(details.images[0]);
+  }, [details]);
+
+  // to set sofa seats
+  useEffect(() => {
+    const titleSplit = details.title.split(" "); //tokenize the title
+
+    // now traverse over the array and check if we find an integer value, set that value as sofaSeats
+    for (var i = 0; i < titleSplit.length; i++) {
+      if (titleSplit[i] >= "1" && titleSplit[i] <= "9")
+        setSofaSeats(Number(titleSplit[i]));
+      if (titleSplit[i].toLowerCase() === "sofa") setIsSofa(true);
+    }
+  }, [details.title]);
 
   function handleOptionChange(e) {
     setImg(details.images[e.target.id]);
   }
-
-  const showWarnToastMessage = (place) => {
-    toast.warn(`Item already present in ${place}! Please update it there.`, {
-      position: "top-left",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
-
-  const showSuccessToastMessage = (place) => {
-    toast.success(`Item added to ${place}`, {
-      position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
 
   function isPresentCart(items, details) {
     for (var i = 0; i < items.length; i++) {
@@ -66,7 +60,7 @@ function ProductMainInfo({ details }) {
 
   function isPresentFav(items, val) {
     for (var i = 0; i < items.length; i++) {
-      if (items[i] === val) return true;
+      if (items[i].sku === val) return true;
     }
     return false;
   }
@@ -76,7 +70,8 @@ function ProductMainInfo({ details }) {
   );
 
   function handleAddToCart() {
-    if (isPresentCart(items, details)) showWarnToastMessage("cart");
+    if (isPresentCart(items, details))
+      showWarnToast("Item already present in cart. Please update it there.");
     else {
       dispatch(
         addToCart({
@@ -85,41 +80,64 @@ function ProductMainInfo({ details }) {
           qty: quantity,
         })
       );
-      showSuccessToastMessage("cart");
+      showSuccesToast("Item added to cart.");
     }
   }
 
   function handleAddFavClick() {
-    if (isPresentFav(favItems, details.sku)) showWarnToastMessage("favourites");
+    if (isPresentFav(favItems, details.sku))
+      showWarnToast("Item already present in favourites.");
     else {
-      dispatch(addToFav(details.sku));
-      showSuccessToastMessage("favourites");
+      dispatch(addToFav(details));
+      showSuccesToast("Item added to favourites.");
     }
   }
 
   return (
     <section className="product-info__main">
       <div className="container-main">
-        <div className="images-main">
-          {/* will contain 4 radio buttons */}
-          {details.images.map((item, index) => {
-            return (
-              <label htmlFor={`${index}`} key={index}>
-                <input
-                  type="radio"
-                  name="image-select"
-                  id={`${index}`}
-                  onChange={handleOptionChange}
-                  className="image-select"
-                />
-                <img src={`${item}`} alt={`img-${index}`} />
-              </label>
-            );
-          })}
-        </div>
+        <div
+          className="container-images"
+          style={{
+            flexDirection: sofaSeats > 1 && isSofa ? "column-reverse" : "row",
+          }}
+        >
+          <div
+            className="images-main"
+            style={{
+              flexDirection: sofaSeats > 1 && isSofa ? "row" : "column",
+            }}
+          >
+            {/* will contain 4 radio buttons */}
+            {details.images.map((item, index) => {
+              return (
+                <label htmlFor={`${index}`} key={index}>
+                  <input
+                    type="radio"
+                    name="image-select"
+                    id={`${index}`}
+                    onChange={handleOptionChange}
+                    className="image-select"
+                    style={{
+                      width: sofaSeats > 1 && isSofa ? "8rem" : "4rem",
+                    }}
+                  />
+                  <img src={`${item}`} alt={`img-${index}`} />
+                </label>
+              );
+            })}
+          </div>
 
-        <div className="bigger-image">
-          <img src={`${img}`} alt="bigger-img" />
+          <div className="bigger-image">
+            <img
+              src={`${img}`}
+              alt="bigger-img"
+              style={{
+                maxHeight: sofaSeats > 1 && isSofa ? "40rem" : "35rem",
+                maxWidth: sofaSeats > 1 && isSofa ? "40rem" : "35rem",
+              }}
+            />
+          </div>
         </div>
 
         <div className="product-main-info">

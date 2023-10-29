@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "../sass/filterBandStyles.scss";
 import { getAllCategories } from "../services/allCategories";
-import axios from "axios";
 import { getAllRoomTypes } from "../services/allRoomTypes";
+import { useSearchParams } from "react-router-dom";
 
-function FilterBand({ setSearchParam, searchParam }) {
+function FilterBand() {
   const [selectValue, setSelectValue] = useState("Recommended");
   const [categories, setCategories] = useState([]);
   const [rooms, setRooms] = useState([]);
+  const [searchParam, setSearchParam] = useSearchParams();
+
+  console.log(searchParam);
+  console.log(selectValue);
 
   // get all categories
   useEffect(() => {
@@ -37,31 +41,20 @@ function FilterBand({ setSearchParam, searchParam }) {
   }, []);
 
   const handleCategoryFilterClick = (e) => {
-    if (e.target.innerText === "None") setSearchParam({});
-    else setSearchParam({ category: e.target.innerText });
+    searchParam.set("category", e.target.innerText);
+    setSearchParam(searchParam);
   };
 
-  function handleSortByClick(e) {
-    setSelectValue(e.target.value);
-  }
+  const handleRoomFilterClick = (e) => {
+    searchParam.set("room", e.target.innerText);
+    setSearchParam(searchParam);
+  };
 
-  function handleRoomFilterClick(e) {
-    if (e.target.innerText === "Any")
-      setSearchParam({
-        category:
-          searchParam.get("category") === null
-            ? "None"
-            : searchParam.get("category"),
-      });
-    else
-      setSearchParam({
-        category:
-          searchParam.get("category") === null
-            ? "None"
-            : searchParam.get("category"),
-        room_type: e.target.innerText,
-      });
-  }
+  const handleSortByClick = (e) => {
+    searchParam.set("sort", e.target.value);
+    setSearchParam(searchParam);
+    setSelectValue(e.target.value);
+  };
 
   return (
     <section className="section__filter">
@@ -89,7 +82,7 @@ function FilterBand({ setSearchParam, searchParam }) {
                   className="category-btn"
                   onClick={handleCategoryFilterClick}
                 >
-                  None
+                  Any
                 </button>
               </ul>
             </div>

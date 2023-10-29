@@ -14,14 +14,19 @@ function ProductCard({ item }) {
   var stars = rating(ratingVal);
 
   function handleClick() {
-    navigate(`products/${item.sku}`);
+    navigate({ pathname: "/products", search: `?sku=${item.sku}` });
+    window.scrollTo({
+      top: 100,
+      left: 100,
+      behavior: "smooth",
+    });
   }
 
   const favItems = useSelector((store) => store.favourites.favs);
 
   function isPresentFav(favItems, val) {
     for (var i = 0; i < favItems.length; i++) {
-      if (favItems[i] === val) return true;
+      if (favItems[i].sku === val) return true;
     }
     return false;
   }

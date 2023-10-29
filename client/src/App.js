@@ -10,26 +10,11 @@ import ShoppingCart from "./components/ShoppingCart";
 import LogIn from "./components/LogIn";
 import ProductPage from "./components/ProductPage";
 import { useState, useEffect } from "react";
-import { getCardData } from "./services/ProductCardData";
 import { useSelector } from "react-redux";
 import SignUpform from "./components/SignUpform";
 
 function App() {
   const [hide, setHide] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [productsData, setProductsData] = useState([]);
-
-  useEffect(() => {
-    async function fetchProducts() {
-      const result = await getCardData();
-      if (result && result.length > 0) {
-        setProductsData(result);
-        setIsLoading(false);
-      }
-    }
-
-    fetchProducts();
-  }, []);
 
   const cartState = useSelector((store) => store.cart);
   const favSate = useSelector((store) => store.favourites);
@@ -47,22 +32,16 @@ function App() {
     <div className="App">
       {!hide && <Header setHide={setHide} />}
       <Routes>
-        <Route
-          path="/"
-          element={<Home data={productsData} isLoading={isLoading} />}
-        ></Route>
+        <Route path="/" element={<Home />}></Route>
 
-        <Route
-          path="/shop"
-          element={<Shop data={productsData} isLoading={isLoading} />}
-        ></Route>
+        <Route path="/shop" element={<Shop />}></Route>
 
         <Route path="/contact" element={<Contact />} />
 
         <Route path="/checkout" element={<CheckOut />} />
 
         <Route path="/cart" element={<ShoppingCart />} />
-        <Route path="/products/:sku" element={<ProductPage />} />
+        <Route path="/products" element={<ProductPage />} />
         <Route path="shop/products/:sku" element={<ProductPage />} />
 
         <Route path="/login" element={<LogIn />} />

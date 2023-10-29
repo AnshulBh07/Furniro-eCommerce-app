@@ -1,29 +1,24 @@
-import React, { useEffect } from "react";
+import React from "react";
 import SectionBanner from "./SectionBanner";
 import FilterBand from "./FilterBand";
 import "../sass/shopStyles.scss";
 import FooterBand from "./FooterBand";
 import ShopItems from "./ShopItems";
-import { useSearchParams } from "react-router-dom";
 import Spinner from "./Spinner";
+import { useQuery } from "@tanstack/react-query";
+import { getCardData } from "../services/ProductCardData";
 
-function Shop({ data, isLoading }) {
-  const [searchParam, setSearchParam] = useSearchParams();
-
+function Shop() {
+  const { data, isLoading } = useQuery({
+    queryKey: ["card data"],
+    queryFn: getCardData,
+  });
   return (
     <div className="container container__shop">
       {/* will have different sections as well */}
       <SectionBanner title={`Shop`} />
-      <FilterBand setSearchParam={setSearchParam} searchParam={searchParam} />
-      {isLoading ? (
-        <Spinner />
-      ) : (
-        <ShopItems
-          data={data}
-          searchParam={searchParam}
-          setSearchParam={setSearchParam}
-        />
-      )}
+      <FilterBand />
+      {isLoading ? <Spinner /> : <ShopItems data={data} />}
       <FooterBand />
     </div>
   );

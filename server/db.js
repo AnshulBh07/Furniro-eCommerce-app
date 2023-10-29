@@ -6,10 +6,8 @@ dotenv.config();
 
 export const pool = new Pool({
   connectionString: process.env.POSTGRES_URL + "?sslmode=require",
-  min: 0,
-  max: 5,
-  acquireTimeoutMillis: 60000,
-  idleTimeoutMillis: 600000,
+  acquireTimeoutMillis: 6000,
+  idleTimeoutMillis: 60000,
 });
 
 pool.connect((err) => {

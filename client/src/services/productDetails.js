@@ -6,7 +6,7 @@ export const getProductDetails = async (sku) => {
       `http://localhost:3001/product_details/${sku}`
     );
     const result = response.data;
-    return result;
+    return result[0];
   } catch (error) {
     console.error(error.message);
   }
