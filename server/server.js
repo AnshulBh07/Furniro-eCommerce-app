@@ -16,6 +16,10 @@ const options = {
 
 app.use(cors(options));
 
+app.get("/", (req, res) => {
+  res.send("On the server");
+});
+
 app.get("/products", async (req, res) => {
   await pool.query("select * from products", (err, result) => {
     if (err) throw err;
