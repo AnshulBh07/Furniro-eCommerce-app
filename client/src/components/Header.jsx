@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import logo from "../assets/images/logo.png";
 import { navItems } from "../resources/links";
 import {
@@ -10,27 +10,26 @@ import {
 import "../sass/headerStyles.scss";
 import MiniCart from "./MiniCart";
 import Favourites from "./Favourites";
-import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import ProfileSubmenu from "./ProfileSubmenu";
 
-function Header({ setHide }) {
-  const [showCart, setShowCart] = useState(false);
-  const [favourites, setFavourites] = useState(false);
-  const [search, setSearch] = useState("");
-  const navigate = useNavigate();
-  const [searchClick, setSearchClick] = useState(false);
-  const { user, isAuthenticated, logout } = useAuth0();
+function Header() {
+  const dispatch = useDispatch();
+
+  const { search, searchClick, showCart, favourites, showProfile } =
+    useSelector((store) => store.header);
+
+  const { user, isAuthenticated } = useAuth0();
 
   const cartItems = useSelector((store) => store.cart.cartItems);
 
   function handleSearch(e) {
-    setSearch(e.target.value);
-    console.log(search);
+    dispatch({ type: "header/setSearch", payload: e.target.value });
   }
 
   function handleSearchClick() {
-    setSearchClick(!searchClick);
+    dispatch({ type: "header/searchClick" });
   }
 
   return (
@@ -55,16 +54,16 @@ function Header({ setHide }) {
       </div>
 
       <div className="options">
+        {showProfile && <ProfileSubmenu />}
         <button
           onClick={() => {
             if (isAuthenticated) {
-              setHide(true);
-              logout();
+              dispatch({ type: "header/showProfileSubmenu" });
             } else {
-              setHide(true);
-              navigate("/login");
+              dispatch({ type: "header/showProfileSubmenu" });
             }
           }}
+          className="btn-options-icons"
         >
           {/* if the user is authenticated set content as google image else icon */}
           {isAuthenticated ? (
@@ -85,16 +84,22 @@ function Header({ setHide }) {
           onChange={handleSearch}
           className={`search-bar ${searchClick ? "search-visible" : ""}`}
         />
-        <button>
+        <button className="btn-options-icons">
           <AiOutlineSearch
             className="option-icon"
             onClick={handleSearchClick}
           />
         </button>
-        <button onClick={() => setFavourites(true)}>
+        <button
+          onClick={() => dispatch({ type: "header/setFav" })}
+          className="btn-options-icons"
+        >
           <AiOutlineHeart className="option-icon" />
         </button>
-        <button onClick={() => setShowCart(true)}>
+        <button
+          onClick={() => dispatch({ type: "header/showCart" })}
+          className="btn-options-icons"
+        >
           <AiOutlineShoppingCart className="option-icon" />
           {cartItems.length > 0 && (
             <p className="no-of-items">
@@ -104,8 +109,8 @@ function Header({ setHide }) {
         </button>
 
         {/* mini cart only visible when toggled by cart icon */}
-        {showCart && <MiniCart setShowCart={setShowCart} />}
-        {favourites && <Favourites setFavourites={setFavourites} />}
+        {showCart && <MiniCart />}
+        {favourites && <Favourites />}
       </div>
 
       {/* mini-cart on div */}

@@ -3,25 +3,21 @@ import "../sass/logInStyles.scss";
 import LoginImage from "../assets/images/bgImage6.jpg";
 import LampImage from "../assets/images/lamp.png";
 import Logo from "../assets/images/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import GoogleLogo from "../assets/images/googleLogo.png";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useDispatch } from "react-redux";
 
 function LogIn() {
-  const [showPwd, setShowPwd] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const pwdRef = useRef(null);
   const [input, setInput] = useState({ email: "", pwd: "" });
   const { loginWithRedirect } = useAuth0();
 
-  function handleShowPwd() {
-    setShowPwd(!showPwd);
-    console.log(showPwd);
-
-    if (showPwd) {
-      pwdRef.current.type = "text";
-    } else {
-      pwdRef.current.type = "password";
-    }
+  function handleLogInClick() {
+    dispatch({ type: "header/show" });
+    navigate("/");
   }
 
   return (
@@ -76,7 +72,9 @@ function LogIn() {
 
         <Link to="#">forgot password?</Link>
 
-        <button className="btn-login">log in</button>
+        <button className="btn-login" onClick={handleLogInClick}>
+          log in
+        </button>
 
         <p>
           Don't have an account?{" "}

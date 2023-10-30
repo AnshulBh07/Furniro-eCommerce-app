@@ -9,12 +9,12 @@ import CheckOut from "./components/CheckOut";
 import ShoppingCart from "./components/ShoppingCart";
 import LogIn from "./components/LogIn";
 import ProductPage from "./components/ProductPage";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import SignUpform from "./components/SignUpform";
 
 function App() {
-  const [hide, setHide] = useState(false);
+  const { showHeaderFooter } = useSelector((store) => store.header);
 
   const cartState = useSelector((store) => store.cart);
   const favSate = useSelector((store) => store.favourites);
@@ -30,7 +30,7 @@ function App() {
 
   return (
     <div className="App">
-      {!hide && <Header setHide={setHide} />}
+      {showHeaderFooter && <Header />}
       <Routes>
         <Route path="/" element={<Home />}></Route>
 
@@ -48,7 +48,7 @@ function App() {
         <Route path="/signUp" element={<SignUpform />} />
         <Route path="*" element={<h1>Route not found</h1>} />
       </Routes>
-      {!hide && <Footer />}
+      {showHeaderFooter && <Footer />}
     </div>
   );
 }

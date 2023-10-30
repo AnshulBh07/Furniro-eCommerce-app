@@ -3,15 +3,14 @@ import "../sass/filterBandStyles.scss";
 import { getAllCategories } from "../services/allCategories";
 import { getAllRoomTypes } from "../services/allRoomTypes";
 import { useSearchParams } from "react-router-dom";
+import { getAllBrands } from "../services/allBrands";
 
 function FilterBand() {
   const [selectValue, setSelectValue] = useState("Recommended");
   const [categories, setCategories] = useState([]);
   const [rooms, setRooms] = useState([]);
+  const [brands, setBrands] = useState([]);
   const [searchParam, setSearchParam] = useSearchParams();
-
-  console.log(searchParam);
-  console.log(selectValue);
 
   // get all categories
   useEffect(() => {
@@ -40,20 +39,44 @@ function FilterBand() {
     fetchAllRoomTypes();
   }, []);
 
+  //get all brands
+  useEffect(() => {
+    const fetchAllBrands = async () => {
+      const result = await getAllBrands();
+      if (result && result.length > 0) {
+        setBrands(result);
+      }
+    };
+    fetchAllBrands();
+  }, []);
+
   const handleCategoryFilterClick = (e) => {
+    searchParam.set("page", 1);
+    setSearchParam(searchParam);
     searchParam.set("category", e.target.innerText);
     setSearchParam(searchParam);
   };
 
   const handleRoomFilterClick = (e) => {
+    searchParam.set("page", 1);
+    setSearchParam(searchParam);
     searchParam.set("room", e.target.innerText);
     setSearchParam(searchParam);
   };
 
   const handleSortByClick = (e) => {
+    searchParam.set("page", 1);
+    setSearchParam(searchParam);
     searchParam.set("sort", e.target.value);
     setSearchParam(searchParam);
     setSelectValue(e.target.value);
+  };
+
+  const handleBrandClick = (e) => {
+    searchParam.set("page", 1);
+    setSearchParam(searchParam);
+    searchParam.set("brand", e.target.innerText);
+    setSearchParam(searchParam);
   };
 
   return (
@@ -97,7 +120,7 @@ function FilterBand() {
                 <li>Living</li>
               </ul>
             </div>
-
+            {/* room types */}
             <div className="room-type">
               <p>Room Type</p>
               <ul className="room-type-submenu">
@@ -113,6 +136,28 @@ function FilterBand() {
                     </li>
                   );
                 })}
+              </ul>
+            </div>
+
+            {/* brand */}
+            <div className="brand-name">
+              <p>brand</p>
+              <ul className="brand-submenu">
+                {brands.sort().map((item, index) => {
+                  return (
+                    <li key={index}>
+                      <button
+                        className="brand-name-btn"
+                        onClick={handleBrandClick}
+                      >
+                        {item}
+                      </button>
+                    </li>
+                  );
+                })}
+                <button className="brand-name-btn" onClick={handleBrandClick}>
+                  Any
+                </button>
               </ul>
             </div>
           </div>

@@ -7,19 +7,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { formatCurrency } from "../services/formatCurrency";
 import { BsCurrencyRupee } from "react-icons/bs";
 
-function MiniCart({ setShowCart }) {
+function MiniCart() {
   const navigate = useNavigate();
   const dispatch = useDispatch(); //enables us to call dispatch to update global state depending
   //actions
 
-  const total = useSelector((store) => store.cart.cartTotal); //extracts cartTotal from reducer state
-  const items = useSelector((store) => store.cart.cartItems);
+  //extracts cartTotal from reducer state
+  const { cartItems, cartTotal } = useSelector((store) => store.cart);
 
   return (
     <div className="mini-cart">
       <h2>
         Shopping Cart
-        <button onClick={() => setShowCart(false)}>
+        <button onClick={() => dispatch({ type: "header/showCart" })}>
           <BsBagX className="icon" />
         </button>
       </h2>
@@ -27,7 +27,7 @@ function MiniCart({ setShowCart }) {
       <hr />
 
       <div className="items">
-        {items.map((item, index) => {
+        {cartItems.map((item, index) => {
           return <MiniCartCard key={index} item={item} />;
         })}
       </div>
@@ -35,7 +35,7 @@ function MiniCart({ setShowCart }) {
       <div className="amount">
         <p>Subtotal</p>
         <p className="total-amount">
-          <BsCurrencyRupee /> {formatCurrency(total)}
+          <BsCurrencyRupee /> {formatCurrency(cartTotal)}
         </p>
       </div>
 
@@ -46,7 +46,7 @@ function MiniCart({ setShowCart }) {
           className="cart-btn"
           onClick={() => {
             navigate("/cart");
-            setShowCart(false);
+            dispatch({ type: "header/showCart" });
           }}
         >
           Cart
@@ -55,7 +55,7 @@ function MiniCart({ setShowCart }) {
           className="checkout-btn"
           onClick={() => {
             navigate("/checkout");
-            setShowCart(false);
+            dispatch({ type: "header/showCart" });
           }}
         >
           Checkout

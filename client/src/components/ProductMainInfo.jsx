@@ -17,6 +17,7 @@ import { addToFav } from "../actions/favsActions";
 import { showSuccesToast, showWarnToast } from "../services/toastMessages";
 
 function ProductMainInfo({ details }) {
+  console.log(details);
   const dispatch = useDispatch();
   const items = useSelector((store) => store.cart.cartItems);
   const favItems = useSelector((store) => store.favourites.favs);

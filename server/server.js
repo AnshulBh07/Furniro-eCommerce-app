@@ -4,6 +4,7 @@ import { pool } from "./db.js";
 import cors from "cors";
 import { tokenizeString } from "./services/tokenize.js";
 import md5 from "md5";
+import { sendMail } from "./services/sendMail.js";
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -21,10 +22,13 @@ app.get("/", (req, res) => {
 });
 
 app.get("/products", async (req, res) => {
-  await pool.query("select * from products", (err, result) => {
-    if (err) throw err;
-    res.send(result.rows);
-  });
+  await pool.query(
+    "select a.sku, a.category, a.title, a.images, a.price, a.discount_value, a.overall_rating, a.tags, a.updated_at, a.new, b.brand_name, b.room_type from products a inner join product_details b on a.sku = b.sku",
+    (err, result) => {
+      if (err) throw err;
+      res.send(result.rows);
+    }
+  );
 });
 
 app.get("/product_details/:sku", async (req, res) => {
@@ -66,6 +70,18 @@ app.get("/room_types", async (req, res) => {
     }
   );
 });
+
+app.get("/brands", async (req, res) => {
+  pool.query(
+    "select distinct brand_name from product_details",
+    (err, result) => {
+      if (err) throw err;
+      res.send(result.rows);
+    }
+  );
+});
+
+app.get("/sendmail", sendMail);
 
 app.listen(port, () => console.log(`Server started at port ${port}`));
 

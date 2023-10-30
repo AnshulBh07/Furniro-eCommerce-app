@@ -26,57 +26,22 @@
       .filter-types {
         @include flexProp(row, 1rem, space-between);
 
-        & .category {
+        & .category,
+        .brand-name,
+        .room-type,
+        .price {
           & p {
             @include sortFilterOption;
           }
 
-          .category-submenu {
-            @include submenu;
-
-            .category-btn {
-              width: 100%;
-              font-family: "poppins", sans-serif;
-              text-transform: capitalize;
-              padding: 0.2rem 0;
-              background-color: transparent;
-              cursor: pointer;
-              border: none;
-
-              &:hover {
-                background-color: $bannerTitle;
-                color: $bgColor;
-              }
-            }
-          }
-
-          &:hover .category-submenu {
-            visibility: visible;
-          }
-        }
-
-        & .price {
-          & p {
-            @include sortFilterOption;
-          }
-
+          .category-submenu,
+          .brand-submenu,
+          .room-type-submenu,
           .price-submenu {
             @include submenu;
-          }
 
-          &:hover .price-submenu {
-            visibility: visible;
-          }
-        }
-
-        & .room-type {
-          & p {
-            @include sortFilterOption;
-          }
-
-          .room-type-submenu {
-            @include submenu;
-
+            .category-btn,
+            .brand-name-btn,
             .room-type-btn {
               width: 100%;
               font-family: "poppins", sans-serif;
@@ -92,7 +57,25 @@
               }
             }
           }
-          &:hover .room-type-submenu {
+
+          // now tailer for specific submenus
+          .brand-submenu,
+          .category-submenu {
+            padding: 1rem 0.5rem;
+            max-height: 20rem;
+            overflow-y: scroll;
+          }
+
+          .room-type-submenu {
+            &::before {
+              top: -3.6%;
+            }
+          }
+
+          &:hover .category-submenu,
+          &:hover .brand-submenu,
+          &:hover .room-type-submenu,
+          &:hover .price-submenu {
             visibility: visible;
           }
         }

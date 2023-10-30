@@ -83,6 +83,7 @@ header {
       outline: none;
     }
 
+    .btn-options-icons,
     button {
       @include iconBtn;
       display: grid;

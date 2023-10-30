@@ -1,0 +1,67 @@
+@import "../sass/variables.scss";
+@import "../sass/mixins.scss";
+
+.container__profileSubmenu {
+  width: 10rem;
+  min-height: fit-content;
+  @include flexProp(column, 0.5rem, space-between);
+  border: 2px solid $hoverBtn;
+  border-radius: 5px;
+  position: absolute;
+  background-color: #fff;
+  top: 90%;
+  right: 8%;
+  z-index: 4;
+
+  .container__logged-out {
+    @include flexProp(column, 0.5rem, space-between);
+    padding: 0.7rem;
+    width: 100%;
+
+    & p {
+      font-family: "poppins", sans-serif;
+      font-size: 1rem;
+      text-transform: capitalize;
+    }
+
+    .btn-header-login {
+      @include useBtns;
+      border-radius: 0;
+      padding: 0.3rem 1.3rem;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+  }
+
+  .container__logged-in {
+    width: 100%;
+    @include flexProp(column, 0.6rem, space-between);
+    padding: 0.7rem;
+    font-family: "poppins", sans-serif;
+
+    & a {
+      text-decoration: none;
+      text-transform: capitalize;
+      color: $primaryText;
+
+      &:hover {
+        color: $bannerTitle;
+      }
+    }
+
+    .btn-header-logout {
+      @include useBtns;
+      padding: 0.3rem 1rem;
+    }
+  }
+
+  &::before {
+    content: "";
+    width: 20%;
+    height: 0.3rem;
+    background-color: $bannerTitle;
+    position: absolute;
+    top: -7%;
+    left: 13%;
+  }
+}
