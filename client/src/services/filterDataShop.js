@@ -28,5 +28,18 @@ export const filterData = (data, filters) => {
       });
   }
 
+  if (filters.min_price && filters.max_price) {
+    finalList = finalList.filter((item) => {
+      const real_price = Math.round(
+        item.price - (item.discount_value / 100) * item.price
+      );
+
+      return (
+        real_price >= Number(filters.min_price) &&
+        real_price <= Number(filters.max_price)
+      );
+    });
+  }
+
   return finalList;
 };

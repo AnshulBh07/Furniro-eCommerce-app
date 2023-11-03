@@ -4,7 +4,6 @@ export const getCardData = async () => {
   try {
     const response = await axios.get(`http://localhost:3001/products`);
     const result = response.data;
-    console.log(result);
 
     const ans = result.map((item) => {
       //for each item we are destructuring
@@ -19,8 +18,7 @@ export const getCardData = async () => {
         tags,
         updated_at,
         new: New,
-        brand_name,
-        room_type,
+        product_details,
       } = item;
 
       // convert timestamptz format to integer data format for easy comparison when sorting
@@ -39,6 +37,8 @@ export const getCardData = async () => {
 
       const [image, , ,] = images;
       const [tag] = tags;
+      const [needed_values] = product_details;
+      const { brand_name, room_type } = needed_values;
 
       return {
         sku,
@@ -50,10 +50,10 @@ export const getCardData = async () => {
         title,
         tag,
         category,
-        room_type,
         date,
-        brand_name,
         discounted_price,
+        brand_name,
+        room_type,
       };
     });
     return ans;

@@ -6,6 +6,7 @@ import {
   AiOutlineShoppingCart,
   AiOutlineSearch,
   AiOutlineUser,
+  AiFillHeart,
 } from "react-icons/ai";
 import "../sass/headerStyles.scss";
 import MiniCart from "./MiniCart";
@@ -23,6 +24,7 @@ function Header() {
   const { user, isAuthenticated } = useAuth0();
 
   const cartItems = useSelector((store) => store.cart.cartItems);
+  const { favs } = useSelector((store) => store.favourites);
 
   function handleSearch(e) {
     dispatch({ type: "header/setSearch", payload: e.target.value });
@@ -94,7 +96,11 @@ function Header() {
           onClick={() => dispatch({ type: "header/setFav" })}
           className="btn-options-icons"
         >
-          <AiOutlineHeart className="option-icon" />
+          {favs.length > 0 ? (
+            <AiFillHeart className="option-icon full" />
+          ) : (
+            <AiOutlineHeart className="option-icon" />
+          )}
         </button>
         <button
           onClick={() => dispatch({ type: "header/showCart" })}

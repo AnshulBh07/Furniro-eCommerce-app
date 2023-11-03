@@ -18,6 +18,7 @@ function App() {
 
   const cartState = useSelector((store) => store.cart);
   const favSate = useSelector((store) => store.favourites);
+  const logInState = useSelector((store) => store.login);
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartState));
@@ -26,7 +27,8 @@ function App() {
       "show_header_footer",
       JSON.stringify(showHeaderFooter)
     );
-  }, [cartState, favSate, showHeaderFooter]);
+    localStorage.setItem("login-state", JSON.stringify(logInState));
+  }, [cartState, favSate, showHeaderFooter, logInState]);
 
   // useEffect(() => {
   //   localStorage.removeItem("cart");

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SectionBanner from "./SectionBanner";
 import FilterBand from "./FilterBand";
 import "../sass/shopStyles.scss";
@@ -13,6 +13,10 @@ function Shop() {
     queryKey: ["card data"],
     queryFn: getCardData,
   });
+
+  useEffect(() => {
+    window.scrollTo(100, 100);
+  }, []);
   return (
     <div className="container container__shop">
       {/* will have different sections as well */}

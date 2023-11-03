@@ -6,7 +6,10 @@ const initialState = stateVal ? stateVal : { favs: [] };
 export const favReducer = (state = initialState, action) => {
   switch (action.type) {
     case "favs/add":
-      return { ...state, favs: [...state.favs, action.payload] };
+      return {
+        ...state,
+        favs: [...state.favs, action.payload],
+      };
     case "favs/remove":
       return {
         ...state,

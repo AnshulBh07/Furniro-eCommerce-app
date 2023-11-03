@@ -29,6 +29,8 @@ function LogIn() {
       // user is found and we match the password
       if (md5(input.pwd) === response[0].password_hash) {
         dispatch({ type: "header/show" });
+        dispatch({ type: "login/toggle" });
+        dispatch({ type: "login/setBasicInfo", payload: response[0] });
         navigate("/");
       } else {
         showErrorToast("Incorrect password!");

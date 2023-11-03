@@ -4,7 +4,6 @@ import ProductCard from "./ProductCard";
 import { useNavigate } from "react-router-dom";
 
 function MiniStore({ data }) {
-  data = data.sort(() => Math.random() - 0.5);
   data = data.slice(0, 8);
   const navigate = useNavigate();
 

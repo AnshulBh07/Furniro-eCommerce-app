@@ -7,6 +7,7 @@ export const getUserProfile = async (email) => {
       url: `http://localhost:3001/getUser?mail=${email}`,
     });
     const result = response.data;
+    console.log(result);
     return result;
   } catch (err) {
     console.error(err);

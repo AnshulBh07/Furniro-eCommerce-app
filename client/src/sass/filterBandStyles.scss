@@ -28,16 +28,14 @@
 
         & .category,
         .brand-name,
-        .room-type,
-        .price {
+        .room-type {
           & .filter-title {
             @include sortFilterOption;
           }
 
           .category-submenu,
           .brand-submenu,
-          .room-type-submenu,
-          .price-submenu {
+          .room-type-submenu {
             @include submenu;
 
             .category-btn,
@@ -76,6 +74,16 @@
           &:hover .brand-submenu,
           &:hover .room-type-submenu,
           &:hover .price-submenu {
+            visibility: visible;
+          }
+        }
+
+        .price {
+          .filter-title {
+            @include sortFilterOption;
+          }
+
+          &:hover .container__price_slider {
             visibility: visible;
           }
         }

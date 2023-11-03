@@ -23,6 +23,8 @@ function ShopItems({ data }) {
     room_type: searchParam.get("room"),
     price_range: searchParam.get("price"),
     brand_name: searchParam.get("brand"),
+    min_price: searchParam.get("min"),
+    max_price: searchParam.get("max"),
   };
 
   let filteredData = filterData(data, filters);

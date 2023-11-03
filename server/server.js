@@ -25,86 +25,92 @@ app.get("/", (req, res) => {
 app.get("/products", async (req, res) => {
   // findMany returns all the rows specified in arguments of function
   //as no argument is specified we get all rows
-  const allProducts = await prisma.products.findMany();
-  console.log(allProducts);
+  const allProducts = await prisma.products.findMany({
+    include: {
+      product_details: {
+        select: { brand_name: true, room_type: true },
+      },
+    },
+  });
   res.send(allProducts);
 });
 
 app.get("/product_details/:sku", async (req, res) => {
   const value = String(req.params.sku);
-  await pool.query(
-    `select * from products a inner join product_details b on a.sku = b.sku where a.sku = '${value}'`,
-    (err, result) => {
-      if (err) throw err;
-      res.send(result.rows);
-    }
-  );
+  // in prisma we can call nested queries as tables are referenced ,we can also set which column to get
+  // using select-true method
+  const product_info = await prisma.products.findUnique({
+    where: { sku: value },
+    include: {
+      product_details: true,
+    },
+  });
+  res.send(product_info);
 });
 
 app.get("/related_products", async (req, res) => {
   const category = String(req.query.category);
 
-  await pool.query(
-    `Select * from products where category = '${category}'`,
-    (err, result) => {
-      if (err) throw err;
-      res.send(result.rows);
-    }
-  );
+  const related_items = await prisma.products.findMany({
+    where: { category: category },
+  });
+
+  res.send(related_items);
 });
 
 app.get("/categories", async (req, res) => {
-  await pool.query("select distinct category from products", (err, result) => {
-    if (err) throw err;
-    res.send(result.rows);
+  const allCategories = await prisma.products.findMany({
+    distinct: ["category"],
+    select: { category: true },
   });
+  res.send(allCategories);
 });
 
 app.get("/room_types", async (req, res) => {
-  pool.query(
-    "select distinct room_type from product_details",
-    (err, result) => {
-      if (err) throw err;
-      res.send(result.rows);
-    }
-  );
+  const allRooms = await prisma.product_details.findMany({
+    distinct: ["room_type"],
+    select: { room_type: true },
+  });
+
+  res.send(allRooms);
 });
 
 app.get("/brands", async (req, res) => {
-  pool.query(
-    "select distinct brand_name from product_details",
-    (err, result) => {
-      if (err) throw err;
-      res.send(result.rows);
-    }
-  );
-});
-
-app.get("/getUser", (req, res) => {
-  const email = String(req.query.mail);
-  pool.query(`select * from users where email = '${email}'`, (err, result) => {
-    if (err) throw err;
-
-    res.send(result.rows);
+  const allBrands = await prisma.product_details.findMany({
+    distinct: ["brand_name"],
+    select: { brand_name: true },
   });
+  res.send(allBrands);
 });
 
-app.post("/new_user", (req, res) => {
+app.get("/getUser", async (req, res) => {
+  const email = String(req.query.mail);
+
+  const user_info = await prisma.users.findMany({
+    where: { email: email },
+  });
+
+  res.send(user_info);
+});
+
+app.post("/new_user", async (req, res) => {
   const name = req.body.username.split(" ");
   const fname = name[0];
   const lname = name.length > 1 ? name[1] : name[0];
   const email = req.body.email;
   const pass = md5(req.body.pwd1);
 
-  pool.query(
-    "insert into users(first_name,last_name,email,password_hash,hasher) values($1,$2,$3,$4,$5)",
-    [fname, lname, email, pass, "md5"],
-    (err) => {
-      if (err) throw err;
+  const userInserted = await prisma.users.create({
+    data: {
+      first_name: fname,
+      last_name: lname,
+      email: email,
+      password_hash: pass,
+      hasher: "md5",
+    },
+  });
 
-      res.send("User registered successfully. ");
-    }
-  );
+  res.send("Sign up successfull!.");
 });
 
 app.post("/user_login", (req, res) => {});

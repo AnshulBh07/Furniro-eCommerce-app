@@ -2,11 +2,19 @@
 @import "../sass/mixins.scss";
 
 .container__price_slider {
-  @include flexProp(column, 1rem, flex-start);
+  @include flexProp(column, 1.5rem, flex-start);
   @include submenu;
   width: 25%;
   padding: 1rem 1rem;
-  visibility: visible;
+
+  &::before {
+    left: 6%;
+    top: -4%;
+  }
+
+  &::after {
+    left: 5%;
+  }
 
   .price-range-displayers {
     @include flexProp(row, 0.5rem, space-between);
@@ -18,6 +26,7 @@
       & span {
         text-transform: capitalize;
         font-size: 0.8rem;
+        font-weight: 500;
       }
 
       .number-displayer {
@@ -38,6 +47,78 @@
           appearance: none;
         }
       }
+    }
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 0.35rem;
+    background-color: #efefef;
+    margin: 0.5rem 0;
+    border-radius: 5px;
+    position: relative;
+
+    .slider1 {
+      height: 100%;
+      background-color: #efefef;
+      border-radius: 5px;
+      position: absolute;
+    }
+
+    .slider2 {
+      height: 100%;
+      border-radius: 5px;
+      background-color: $bannerTitle;
+    }
+
+    .range-inputs {
+      position: absolute;
+      top: 0%;
+      width: 100%;
+
+      .range-slider {
+        height: 0.35rem;
+        position: absolute;
+        width: 100%;
+        -webkit-appearance: none;
+        appearance: none;
+        pointer-events: none;
+        background: none;
+      }
+
+      input[type="range"]::-webkit-slider-thumb {
+        height: 1.3rem;
+        width: 1.3rem;
+        border-radius: 50%;
+        -webkit-appearance: none;
+        pointer-events: auto;
+        border: 1px solid $bannerTitle;
+        background-color: #fff;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .final-range {
+    @include flexProp(row, 0rem, space-between);
+    width: 100%;
+
+    .final-price-range {
+      @include flexProp(row, 0.2rem, space-between);
+      font-size: 0.9rem;
+      color: $bannerTitle;
+      font-weight: 600;
+
+      & p {
+        @include flexProp(row, 0rem, space-between);
+      }
+    }
+
+    .btn-apply-range {
+      @include useBtns;
+      align-self: flex-end;
+      padding: 0.3rem 1rem;
+      text-transform: uppercase;
     }
   }
 }
