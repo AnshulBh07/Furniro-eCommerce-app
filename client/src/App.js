@@ -22,11 +22,17 @@ function App() {
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartState));
     localStorage.setItem("favList", JSON.stringify(favSate));
-  }, [cartState, favSate]);
+    localStorage.setItem(
+      "show_header_footer",
+      JSON.stringify(showHeaderFooter)
+    );
+  }, [cartState, favSate, showHeaderFooter]);
 
   // useEffect(() => {
   //   localStorage.removeItem("cart");
   // }, []);
+
+  console.log(showHeaderFooter);
 
   return (
     <div className="App">

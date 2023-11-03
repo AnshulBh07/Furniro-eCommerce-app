@@ -2,13 +2,14 @@ import express from "express";
 import bodyParser from "body-parser";
 import { pool } from "./db.js";
 import cors from "cors";
-import { tokenizeString } from "./services/tokenize.js";
 import md5 from "md5";
 import { sendMail } from "./services/sendMail.js";
+import { PrismaClient } from "@prisma/client";
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
+const prisma = new PrismaClient();
 const port = 3001;
 
 const options = {
@@ -22,13 +23,11 @@ app.get("/", (req, res) => {
 });
 
 app.get("/products", async (req, res) => {
-  await pool.query(
-    "select a.sku, a.category, a.title, a.images, a.price, a.discount_value, a.overall_rating, a.tags, a.updated_at, a.new, b.brand_name, b.room_type from products a inner join product_details b on a.sku = b.sku",
-    (err, result) => {
-      if (err) throw err;
-      res.send(result.rows);
-    }
-  );
+  // findMany returns all the rows specified in arguments of function
+  //as no argument is specified we get all rows
+  const allProducts = await prisma.products.findMany();
+  console.log(allProducts);
+  res.send(allProducts);
 });
 
 app.get("/product_details/:sku", async (req, res) => {
@@ -80,6 +79,35 @@ app.get("/brands", async (req, res) => {
     }
   );
 });
+
+app.get("/getUser", (req, res) => {
+  const email = String(req.query.mail);
+  pool.query(`select * from users where email = '${email}'`, (err, result) => {
+    if (err) throw err;
+
+    res.send(result.rows);
+  });
+});
+
+app.post("/new_user", (req, res) => {
+  const name = req.body.username.split(" ");
+  const fname = name[0];
+  const lname = name.length > 1 ? name[1] : name[0];
+  const email = req.body.email;
+  const pass = md5(req.body.pwd1);
+
+  pool.query(
+    "insert into users(first_name,last_name,email,password_hash,hasher) values($1,$2,$3,$4,$5)",
+    [fname, lname, email, pass, "md5"],
+    (err) => {
+      if (err) throw err;
+
+      res.send("User registered successfully. ");
+    }
+  );
+});
+
+app.post("/user_login", (req, res) => {});
 
 app.get("/sendmail", sendMail);
 

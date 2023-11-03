@@ -1,0 +1,43 @@
+@import "../sass/variables.scss";
+@import "../sass/mixins.scss";
+
+.container__price_slider {
+  @include flexProp(column, 1rem, flex-start);
+  @include submenu;
+  width: 25%;
+  padding: 1rem 1rem;
+  visibility: visible;
+
+  .price-range-displayers {
+    @include flexProp(row, 0.5rem, space-between);
+    width: 100%;
+
+    .price-label {
+      @include flexProp(row, 0.4rem, space-between);
+
+      & span {
+        text-transform: capitalize;
+        font-size: 0.8rem;
+      }
+
+      .number-displayer {
+        font-family: "poppins", sans-serif;
+        padding: 0.3rem;
+        text-align: center;
+        border: 1px solid $hoverBtn;
+        font-size: 0.8rem;
+        border-radius: 5px;
+        font-weight: 500;
+
+        &:focus {
+          outline: none;
+        }
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          appearance: none;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,139 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_PRISMA_URL")
+}
+
+model address {
+  user_id       String? @db.Uuid
+  name          String  @db.VarChar
+  mobile_no     String? @db.VarChar
+  address_line1 String?
+  address_line2 String?
+  pin_code      Int?
+  city          String? @db.VarChar
+  state         String? @db.VarChar
+  country       String? @db.VarChar
+  address_id    Int     @id @default(autoincrement())
+  users         users?  @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model cart_items {
+  cart_id    String?   @db.Uuid
+  sku        String    @id @db.VarChar
+  price      Float
+  quantity   Int
+  created_at DateTime? @db.Timestamptz(6)
+  carts      carts?    @relation(fields: [cart_id], references: [cart_id], onDelete: NoAction, onUpdate: NoAction)
+  products   products  @relation(fields: [sku], references: [sku], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model carts {
+  cart_id    String       @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  created_by String?      @db.Uuid
+  status     String?      @db.VarChar
+  created_at DateTime?    @db.Timestamptz(6)
+  updated_at DateTime?    @db.Timestamptz(6)
+  cart_items cart_items[]
+  users      users?       @relation(fields: [created_by], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model order_items {
+  item_id  String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  order_id String?   @db.Uuid
+  sku      String?   @db.VarChar
+  price    Float
+  quantity Int
+  orders   orders?   @relation(fields: [order_id], references: [order_id], onDelete: NoAction, onUpdate: NoAction)
+  products products? @relation(fields: [sku], references: [sku], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model orders {
+  order_id    String        @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  user_id     String?       @db.Uuid
+  created_at  DateTime?     @db.Timestamptz(6)
+  order_items order_items[]
+  users       users?        @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model product_details {
+  sku              String?   @db.VarChar
+  brand_id         String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  brand_name       String    @db.VarChar
+  dimensions       String    @db.VarChar
+  primary_material String?   @db.VarChar
+  warranty         Int?
+  assembly         String?   @db.VarChar
+  room_type        String?   @db.VarChar
+  weight           Float
+  products         products? @relation(fields: [sku], references: [sku], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model products {
+  sku             String            @id @db.VarChar
+  category        String            @db.VarChar
+  title           String            @db.VarChar
+  images          String[]
+  summary         String?
+  description     String?
+  price           Float
+  discount_type   String?           @db.VarChar
+  discount_value  Float?
+  tags            String[]
+  overall_rating  Float?
+  specifications  String?
+  care            String?
+  created_at      DateTime?         @db.Timestamptz(6)
+  updated_at      DateTime?         @db.Timestamptz(6)
+  new             Boolean?
+  cart_items      cart_items?
+  order_items     order_items[]
+  product_details product_details[]
+  reviews         reviews[]
+}
+
+model reviews {
+  review_id    String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  user_id      String?   @db.Uuid
+  sku          String?   @db.VarChar
+  rating       Float?
+  user_comment String?
+  created_at   DateTime? @db.Timestamptz(6)
+  products     products? @relation(fields: [sku], references: [sku], onDelete: NoAction, onUpdate: NoAction)
+  users        users?    @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model social_profiles {
+  user_id            String?   @db.Uuid
+  platform           String?   @db.VarChar
+  platform_name      String?   @db.VarChar
+  created_at         DateTime? @db.Timestamptz(6)
+  social_profiles_id Int       @id @default(autoincrement())
+  users              users?    @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model users {
+  user_id         String            @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  first_name      String            @db.VarChar
+  last_name       String            @db.VarChar
+  email           String            @db.VarChar
+  phone           String?           @db.VarChar
+  company         String?           @db.VarChar
+  country         String?           @db.VarChar
+  town            String?           @db.VarChar
+  city            String?           @db.VarChar
+  zipcode         String?           @db.VarChar
+  created         DateTime?         @db.Timestamptz(6)
+  updated         DateTime?         @db.Timestamptz(6)
+  bio             String?           @db.VarChar
+  hasher          String?           @db.VarChar
+  password_hash   String?           @db.VarChar
+  address         address[]
+  carts           carts[]
+  orders          orders[]
+  reviews         reviews[]
+  social_profiles social_profiles[]
+}

@@ -5,16 +5,18 @@ import { FaUser } from "react-icons/fa";
 import { BiSolidLockAlt } from "react-icons/bi";
 import { GrMail } from "react-icons/gr";
 import GoogleLogo from "../assets/images/googleLogo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PasswordPolicy from "./PasswordPolicy";
-import axios from "axios";
-import { showWarnToast } from "../services/toastMessages";
+import { showSuccesToast, showWarnToast } from "../services/toastMessages";
 import { checkPassValidity } from "../services/checkPassword";
+import { getUserProfile } from "../services/getUserProfile";
+import { createNewUser } from "../services/signUpUser";
 
 function SignUpform() {
+  const navigate = useNavigate();
   const [signUp, setSignUp] = useState({
     username: "",
     email: "",
@@ -25,6 +27,7 @@ function SignUpform() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    console.log(signUp);
 
     if (signUp.pwd1 !== signUp.pwd2) {
       showWarnToast("Password doesn't match!");
@@ -32,13 +35,23 @@ function SignUpform() {
     }
 
     if (checkPassValidity(signUp.pwd1)) {
-      const response = await axios({
-        method: "post",
-        url: e.target.action,
-        data: signUp,
-      });
+      // first we check whether the user is already present or not
+      const result1 = await getUserProfile(signUp.email);
+      console.log(result1);
 
-      console.log(response);
+      if (result1.length > 0) {
+        //which means that the user is already present
+        showWarnToast(
+          "User already present. Please log in using the same email account."
+        );
+      } else {
+        // we update the user in database
+        const response = await createNewUser(signUp);
+        showSuccesToast(response + "Redirecting to login page...");
+        setTimeout(() => {
+          navigate("/login");
+        }, 3000);
+      }
     }
   }
 
@@ -66,7 +79,7 @@ function SignUpform() {
   return (
     <div className="container container__sign-up">
       <div className="img-part">
-        <img src={`${BgImage}`} alt="bg-image" />
+        <img src={`${BgImage}`} alt="bg-img" />
       </div>
       <div className="form-part">
         <form

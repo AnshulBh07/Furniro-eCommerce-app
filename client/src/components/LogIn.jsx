@@ -7,6 +7,10 @@ import { Link, useNavigate } from "react-router-dom";
 import GoogleLogo from "../assets/images/googleLogo.png";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch } from "react-redux";
+import { getUserProfile } from "../services/getUserProfile";
+import md5 from "md5";
+import { showErrorToast } from "../services/toastMessages";
+import { ToastContainer } from "react-toastify";
 
 function LogIn() {
   const dispatch = useDispatch();
@@ -15,9 +19,21 @@ function LogIn() {
   const [input, setInput] = useState({ email: "", pwd: "" });
   const { loginWithRedirect } = useAuth0();
 
-  function handleLogInClick() {
-    dispatch({ type: "header/show" });
-    navigate("/");
+  async function handleLogInClick() {
+    // first we will fetch the user details and see whether he/she is signed up
+    const response = await getUserProfile(input.email);
+    // in case user is not present
+    if (response.length === 0) {
+      showErrorToast("User not found. Please sign up first.");
+    } else {
+      // user is found and we match the password
+      if (md5(input.pwd) === response[0].password_hash) {
+        dispatch({ type: "header/show" });
+        navigate("/");
+      } else {
+        showErrorToast("Incorrect password!");
+      }
+    }
   }
 
   return (
@@ -85,7 +101,13 @@ function LogIn() {
 
         <hr className="dividor" />
 
-        <button className="google-btn" onClick={() => loginWithRedirect()}>
+        <button
+          className="google-btn"
+          onClick={() => {
+            loginWithRedirect();
+            dispatch({ type: "header/show" });
+          }}
+        >
           <img
             src={`${GoogleLogo}`}
             alt="google-logo"
@@ -97,6 +119,19 @@ function LogIn() {
 
       <img src={`${LampImage}`} alt="lamp-img1" className="lamp1" />
       <img src={`${LampImage}`} alt="lamp-img2" className="lamp2" />
+
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </div>
   );
 }

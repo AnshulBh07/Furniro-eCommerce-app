@@ -1,10 +1,12 @@
+const val = JSON.parse(localStorage.getItem("show_header_footer"));
+
 const initialState = {
   showCart: false,
   favourites: false,
   search: "",
   searchClick: false,
   showProfile: false,
-  showHeaderFooter: true,
+  showHeaderFooter: val !== null ? val : true, //check whether this state is undefined or not
 };
 
 export const headerReducer = (state = initialState, action) => {

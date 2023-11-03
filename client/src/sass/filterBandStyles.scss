@@ -30,7 +30,7 @@
         .brand-name,
         .room-type,
         .price {
-          & p {
+          & .filter-title {
             @include sortFilterOption;
           }
 

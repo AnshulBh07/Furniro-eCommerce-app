@@ -4,6 +4,7 @@ import { getAllCategories } from "../services/allCategories";
 import { getAllRoomTypes } from "../services/allRoomTypes";
 import { useSearchParams } from "react-router-dom";
 import { getAllBrands } from "../services/allBrands";
+import PriceSlider from "./PriceSlider";
 
 function FilterBand() {
   const [selectValue, setSelectValue] = useState("Recommended");
@@ -87,7 +88,7 @@ function FilterBand() {
           <div className="filter-types">
             {/* each of these filters will have a drop down which shall appear on hover */}
             <div className="category">
-              <p>Category</p>
+              <p className="filter-title">Category</p>
               <ul className="category-submenu">
                 {categories.sort().map((item, index) => {
                   return (
@@ -110,19 +111,15 @@ function FilterBand() {
               </ul>
             </div>
 
+            {/* for price we will include a slider approach */}
             <div className="price">
-              <p>price</p>
-              <ul className="price-submenu">
-                <li>Bed</li>
-                <li>Chair</li>
-                <li>Wardrobes</li>
-                <li>Kitchen</li>
-                <li>Living</li>
-              </ul>
+              <p className="filter-title">price</p>
+              <PriceSlider />
             </div>
+
             {/* room types */}
             <div className="room-type">
-              <p>Room Type</p>
+              <p className="filter-title">Room Type</p>
               <ul className="room-type-submenu">
                 {rooms.sort().map((item, index) => {
                   return (
@@ -141,7 +138,7 @@ function FilterBand() {
 
             {/* brand */}
             <div className="brand-name">
-              <p>brand</p>
+              <p className="filter-title">brand</p>
               <ul className="brand-submenu">
                 {brands.sort().map((item, index) => {
                   return (
