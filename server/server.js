@@ -1,6 +1,5 @@
 import express from "express";
 import bodyParser from "body-parser";
-import { pool } from "./db.js";
 import cors from "cors";
 import md5 from "md5";
 import { sendMail } from "./services/sendMail.js";
@@ -13,7 +12,7 @@ const prisma = new PrismaClient();
 const port = 3001;
 
 const options = {
-  origins: "http://localhost:3000",
+  origin: "http://localhost:3000",
 };
 
 app.use(cors(options));
