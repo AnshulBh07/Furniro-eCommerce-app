@@ -12,7 +12,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 const prisma = new PrismaClient();
-const port = process.env.PORT || 3001;
+const port = 3001;
 
 app.use(cors());
 
