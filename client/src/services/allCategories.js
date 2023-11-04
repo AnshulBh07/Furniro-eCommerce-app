@@ -2,7 +2,9 @@ import axios from "axios";
 
 export const getAllCategories = async () => {
   try {
-    const response = await axios.get("http://localhost:3001/categories");
+    const response = await axios.get(
+      "https://furniro-e-commerce-app-backend.vercel.app/categories"
+    );
     const result = response.data;
 
     const ans = result.map((item) => {
