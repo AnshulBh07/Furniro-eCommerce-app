@@ -1,0 +1,80 @@
+@import "../sass/variables.scss";
+@import "../sass/mixins.scss";
+
+.container__orders {
+  @include flexProp(column, 2rem, space-between);
+  width: 70%;
+  min-height: fit-content;
+  border: 2px solid $hoverBtn;
+  padding: 2rem 1rem;
+  font-family: "poppins", sans-serif;
+
+  .heading-orders {
+    width: 100%;
+    @include flexProp(row, 0rem, space-between);
+
+    & h1 {
+      font-weight: 500;
+      text-transform: capitalize;
+    }
+
+    .orders-search-bar {
+      width: 45%;
+      height: 2.5rem;
+      @include flexProp(row, 0rem, space-between);
+
+      .search-orders {
+        height: 100%;
+        width: 100%;
+        border: none;
+        border-bottom: 2px solid $modalOn;
+        padding: 0 0.6rem;
+        color: $secondaryText;
+        font-size: 1rem;
+
+        &::placeholder {
+          font-size: 1rem;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+
+      .btn-search-orders {
+        height: 100%;
+        background-color: transparent;
+        border: none;
+        border-bottom: 2px solid $modalOn;
+        cursor: pointer;
+
+        .search-icon {
+          height: 1.2rem;
+          width: 1.2rem;
+          color: $modalOn;
+        }
+      }
+    }
+  }
+
+  .container__no-orders {
+    @include flexProp(column, 1.5rem, space-between);
+
+    & p {
+      font-size: 1rem;
+      text-transform: capitalize;
+    }
+
+    & img {
+      width: 100%;
+    }
+
+    .btn-continue-shopping {
+      @include useBtns;
+      text-transform: uppercase;
+      font-size: 1rem;
+      width: 50%;
+      padding: 0.4rem 1rem;
+    }
+  }
+}

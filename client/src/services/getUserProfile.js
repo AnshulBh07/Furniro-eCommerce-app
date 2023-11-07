@@ -4,11 +4,10 @@ export const getUserProfile = async (email) => {
   try {
     const response = await axios({
       method: "get",
-      url: `https://furniro-e-commerce-app-backend.vercel.app/getUser?mail=${email}`,
+      url: `/api/getUser?mail=${email}`,
     });
     const result = response.data;
-    console.log(result);
-    return result;
+    return result[0];
   } catch (err) {
     console.error(err);
   }

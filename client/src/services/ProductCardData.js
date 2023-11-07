@@ -2,9 +2,7 @@ import axios from "axios";
 
 export const getCardData = async () => {
   try {
-    const response = await axios.get(
-      `https://furniro-e-commerce-app-backend.vercel.app/products`
-    );
+    const response = await axios.get(`/api/products`);
     const result = response.data;
 
     const ans = result.map((item) => {

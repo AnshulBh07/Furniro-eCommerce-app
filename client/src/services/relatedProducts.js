@@ -3,7 +3,7 @@ import axios from "axios";
 export const getRelatedProducts = async (category, sku) => {
   try {
     const response = await axios.get(
-      `https://furniro-e-commerce-app-backend.vercel.app/related_products?category=${category}&sku=${sku}`
+      `/api/related_products?category=${category}&sku=${sku}`
     );
     const result = response.data; //converts to json
     //destucture to form card data to display under related products

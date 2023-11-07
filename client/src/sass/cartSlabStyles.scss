@@ -1,0 +1,149 @@
+@import "../sass/variables.scss";
+@import "../sass/mixins.scss";
+
+.container__cart-slab {
+  width: 100%;
+  height: 8rem;
+  border: 1px solid $hoverBtn;
+  border-radius: 3px;
+  @include flexProp(row, 0rem, space-between);
+
+  .product-info-container {
+    width: 97%;
+    @include flexProp(column, 0.5rem, flex-start);
+    padding: 0.8rem;
+
+    .product-name {
+      text-transform: capitalize;
+      font-weight: 600;
+      font-size: 0.9rem;
+      align-self: flex-start;
+    }
+
+    .product-info {
+      width: 100%;
+      height: 5rem;
+      @include flexProp(row, 0rem, flex-start);
+
+      .img-container {
+        @include flexProp(row, 1.5rem, flex-start);
+        height: 100%;
+        width: 45%;
+
+        & img {
+          height: 4rem;
+          width: 4rem;
+        }
+
+        .sku {
+          @include flexProp(column, 1rem, flex-start);
+          align-items: flex-start;
+          height: 100%;
+
+          .sku-text {
+            font-size: 0.85rem;
+
+            & span {
+              font-weight: 600;
+              font-size: 0.8rem;
+            }
+          }
+
+          & p {
+            font-size: 0.8rem;
+            text-transform: capitalize;
+          }
+        }
+      }
+
+      .price {
+        width: 20%;
+        height: 100%;
+        @include flexProp(column, 0.6rem, flex-start);
+        align-items: flex-start;
+
+        & p {
+          font-size: 0.8rem;
+          text-transform: capitalize;
+        }
+
+        .price-container {
+          @include flexProp(row, 0.5rem, flex-start);
+
+          .actual {
+            @include flexProp(row, 0.1rem, space-between);
+            font-size: 0.9rem;
+            color: $modalOn;
+            text-decoration: line-through;
+          }
+
+          .discounted {
+            @include flexProp(row, 0rem, space-between);
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: $spinner4;
+          }
+        }
+      }
+
+      .qty-btns-container {
+        width: 20%;
+        height: 100%;
+        @include flexProp(column, 0.6rem, flex-start);
+
+        & p {
+          font-size: 0.8rem;
+          text-transform: capitalize;
+        }
+
+        .qty-btns {
+          @include flexProp(row, 0.7rem, space-between);
+
+          & p {
+            font-size: 0.9rem;
+            font-weight: 600;
+          }
+
+          .qty-btn {
+            @include useBtn2;
+            border-width: 1px;
+            padding: 0.2rem 1rem;
+            font-size: 1rem;
+            border-radius: 0;
+          }
+        }
+      }
+
+      .total-item-price {
+        width: 15%;
+        height: 100%;
+        @include flexProp(column, 0.6rem, flex-start);
+
+        & p {
+          font-size: 0.8rem;
+          text-transform: capitalize;
+        }
+
+        .total-price {
+          font-size: 0.9rem;
+          font-weight: 600;
+          @include flexProp(row, 0rem, space-between);
+        }
+      }
+    }
+  }
+
+  .delete-btn-container {
+    width: 3%;
+    height: 100%;
+    background-color: $cardBg;
+    @include flexProp(row, 0rem, center);
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+
+    &:hover {
+      background-color: $modalOn;
+    }
+  }
+}

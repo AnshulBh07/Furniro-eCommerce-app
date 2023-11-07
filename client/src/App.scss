@@ -11,3 +11,8 @@
   position: relative;
   min-height: 100vh;
 }
+
+.active {
+  max-height: 100vh;
+  overflow-y: hidden;
+}

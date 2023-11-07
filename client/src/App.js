@@ -12,6 +12,10 @@ import ProductPage from "./components/ProductPage";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import SignUpform from "./components/SignUpform";
+import ProfilePage from "./components/ProfilePage";
+import MyDetails from "./components/MyDetails";
+import MyOrders from "./components/MyOrders";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const { showHeaderFooter } = useSelector((store) => store.header);
@@ -34,10 +38,14 @@ function App() {
   //   localStorage.removeItem("cart");
   // }, []);
 
-  console.log(showHeaderFooter);
+  const { showEditDetails, showAddressEditor } = useSelector(
+    (store) => store.profile
+  );
 
   return (
-    <div className="App">
+    <div
+      className={`App ${showEditDetails || showAddressEditor ? "active" : ""}`}
+    >
       {showHeaderFooter && <Header />}
       <Routes>
         <Route path="/" element={<Home />}></Route>
@@ -54,9 +62,27 @@ function App() {
 
         <Route path="/login" element={<LogIn />} />
         <Route path="/signUp" element={<SignUpform />} />
+        <Route path="/account" element={<ProfilePage />}>
+          <Route index element={<MyDetails />} />
+          <Route path="details" element={<MyDetails />} />
+          <Route path="orders" element={<MyOrders />} />
+        </Route>
         <Route path="*" element={<h1>Route not found</h1>} />
       </Routes>
       {showHeaderFooter && <Footer />}
+
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 }

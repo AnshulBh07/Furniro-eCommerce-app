@@ -4,7 +4,7 @@ export const getAllBrands = async () => {
   try {
     const response = await axios({
       method: "get",
-      url: "https://furniro-e-commerce-app-backend.vercel.app/brands",
+      url: "/api/brands",
     });
     const result = response.data; //converts to json
     const ans = result.map((item) => {

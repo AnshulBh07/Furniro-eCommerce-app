@@ -8,17 +8,19 @@ datasource db {
 }
 
 model address {
-  user_id       String? @db.Uuid
-  name          String  @db.VarChar
-  mobile_no     String? @db.VarChar
+  user_id       String?  @db.Uuid
+  name          String   @db.VarChar
+  mobile_no     String?  @db.VarChar
   address_line1 String?
   address_line2 String?
   pin_code      Int?
-  city          String? @db.VarChar
-  state         String? @db.VarChar
-  country       String? @db.VarChar
-  address_id    Int     @id @default(autoincrement())
-  users         users?  @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+  city          String?  @db.VarChar
+  state         String?  @db.VarChar
+  country       String?  @db.VarChar
+  address_id    Int      @id @default(autoincrement())
+  type          String?  @db.VarChar
+  use_default   Boolean?
+  users         users?   @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model cart_items {
@@ -122,15 +124,12 @@ model users {
   email           String            @db.VarChar
   phone           String?           @db.VarChar
   company         String?           @db.VarChar
-  country         String?           @db.VarChar
-  town            String?           @db.VarChar
-  city            String?           @db.VarChar
-  zipcode         String?           @db.VarChar
   created         DateTime?         @db.Timestamptz(6)
   updated         DateTime?         @db.Timestamptz(6)
   bio             String?           @db.VarChar
   hasher          String?           @db.VarChar
   password_hash   String?           @db.VarChar
+  dob             DateTime?         @db.Date
   address         address[]
   carts           carts[]
   orders          orders[]

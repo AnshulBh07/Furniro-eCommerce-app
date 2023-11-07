@@ -1,0 +1,115 @@
+@import "../sass/variables.scss";
+@import "../sass/mixins.scss";
+
+.container__cart-invoice {
+  width: 100%;
+  @include flexProp(column, 0.5rem, flex-start);
+  align-items: flex-start;
+  color: $secondaryText;
+
+  .promo-header {
+    font-size: 0.9rem;
+    text-transform: capitalize;
+    font-weight: 500;
+  }
+
+  .promo-code {
+    width: 100%;
+    @include flexProp(row, 1rem, space-between);
+
+    .input-promo {
+      width: 50%;
+      font-size: 0.9rem;
+      padding: 0.3rem 0.6rem;
+      border: 1px solid $hoverBtn;
+
+      &::placeholder {
+        text-transform: capitalize;
+        color: $modalOn;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .btn-promo {
+      width: 50%;
+      padding: 0.3rem;
+      background-color: $primaryText;
+      color: #fff;
+      font-weight: 500;
+      text-transform: uppercase;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #000;
+      }
+    }
+  }
+
+  .redirect {
+    font-size: 0.8rem;
+
+    & a {
+      text-decoration: none;
+      color: $bannerTitle;
+    }
+  }
+
+  & h2 {
+    text-transform: capitalize;
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+  }
+
+  .promo-offer {
+    width: 100%;
+    @include flexProp(row, 0rem, space-between);
+    font-size: 0.8rem;
+
+    & span {
+      @include flexProp(row, 0rem, space-between);
+    }
+
+    .offered {
+      font-weight: 600;
+      color: rgb(0, 160, 0);
+    }
+  }
+
+  .subtotal {
+    @include cartInvoiceProp;
+  }
+
+  .ship-cost {
+    @include cartInvoiceProp;
+  }
+
+  .ship-discount {
+    color: rgb(204, 3, 3);
+    @include cartInvoiceProp;
+  }
+
+  .sales-tax {
+    @include cartInvoiceProp;
+  }
+
+  .est-total {
+    @include cartInvoiceProp;
+
+    & span {
+      color: $bannerTitle;
+    }
+  }
+
+  .btn-chkout {
+    @include useBtns;
+    width: 100%;
+    border-radius: 3px;
+    padding: 0.5rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-top: 1.5rem;
+  }
+}

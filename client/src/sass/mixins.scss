@@ -126,3 +126,29 @@
     top: -0.2%;
   }
 }
+
+@mixin detailsSlab {
+  width: 100%;
+  @include flexProp(row, 0rem, space-between);
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid $hoverBtn;
+  background-color: #fff;
+
+  & p {
+    font-size: 0.8rem;
+    color: $secondaryText;
+    text-transform: capitalize;
+  }
+}
+
+@mixin cartInvoiceProp {
+  width: 100%;
+  @include flexProp(row, 0rem, space-between);
+  font-size: 0.85rem;
+  text-transform: capitalize;
+
+  & span {
+    @include flexProp(row, 0rem, space-between);
+    font-weight: 600;
+  }
+}

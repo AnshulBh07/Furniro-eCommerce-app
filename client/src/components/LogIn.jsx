@@ -22,15 +22,16 @@ function LogIn() {
   async function handleLogInClick() {
     // first we will fetch the user details and see whether he/she is signed up
     const response = await getUserProfile(input.email);
+    console.log(response);
     // in case user is not present
-    if (response.length === 0) {
+    if (JSON.stringify(response) === "{}") {
       showErrorToast("User not found. Please sign up first.");
     } else {
       // user is found and we match the password
-      if (md5(input.pwd) === response[0].password_hash) {
+      if (md5(input.pwd) === response.password_hash) {
         dispatch({ type: "header/show" });
         dispatch({ type: "login/toggle" });
-        dispatch({ type: "login/setBasicInfo", payload: response[0] });
+        dispatch({ type: "login/setBasicInfo", payload: response });
         navigate("/");
       } else {
         showErrorToast("Incorrect password!");

@@ -1,29 +1,37 @@
 import React from "react";
 import "../sass/cartStyles.scss";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import CartSlab from "./CartSlab";
+import CartInvoice from "./CartInvoice";
 
 function Cart() {
   const navigate = useNavigate();
 
+  const { cartItems, cartTotal } = useSelector((store) => store.cart);
+  console.log(cartItems);
+
   return (
     <section className="cart-details__section">
-      <div className="cart-info">
-        <div className="cart-totals">
-          <h2>cart totals</h2>
-          <div className="subtotal">
-            <p className="field">subtotal</p>
-            <p className="value">rp. 250.0000</p>
-          </div>
-          <div className="total-price">
-            <p className="field">total</p>
-            <p className="sum">rp. 250.000</p>
-          </div>
-          <button
-            className="btn-checkout"
-            onClick={() => navigate("/checkout")}
-          >
-            checkout
-          </button>
+      <div className="headers">
+        <Link to={"/shop"}>continue shopping</Link>
+        <p className="no-of-items">{cartItems.length} items</p>
+        <p>
+          <span>need help? call</span> (800) 946-3682
+        </p>
+      </div>
+
+      <hr />
+
+      <div className="cart-main-info">
+        <div className="container-cart-items">
+          {cartItems.map((item, index) => {
+            return <CartSlab item={item} key={index} />;
+          })}
+        </div>
+
+        <div className="container-cart-total">
+          <CartInvoice />
         </div>
       </div>
     </section>

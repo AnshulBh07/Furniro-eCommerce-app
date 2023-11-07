@@ -1,15 +1,14 @@
 import axios from "axios";
 
-export const createNewUser = async (info) => {
+export const getUserAddress = async (user_id) => {
   try {
     const response = await axios({
-      method: "post",
-      url: "/api/new_user",
-      data: info,
+      method: "get",
+      url: `/api/user_address?user_id=${user_id}`,
     });
     const result = response.data;
     return result;
   } catch (err) {
-    console.error(err);
+    if (err) console.error(err);
   }
 };

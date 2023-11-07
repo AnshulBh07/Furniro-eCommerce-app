@@ -34,8 +34,8 @@ function ProfileSubmenu() {
           ) : (
             <p>Hello, {fName}!</p>
           )}
-          <Link to={"#"}>my profile</Link>
-          <Link to={"#"}>my orders</Link>
+          <Link to={"/account/details"}>my profile</Link>
+          <Link to={"/account/orders"}>my orders</Link>
           <button
             className="btn-header-logout"
             onClick={() => {

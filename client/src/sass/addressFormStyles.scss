@@ -1,0 +1,187 @@
+@import "../sass/variables.scss";
+@import "../sass/mixins.scss";
+
+.form__address {
+  @include flexProp(column, 1rem, space-between);
+  height: 100%;
+  font-family: "poppins", sans-serif;
+
+  .address-form__first-part {
+    width: 100%;
+    @include flexProp(column, 1rem, flex-start);
+
+    & h1 {
+      font-weight: 500;
+      text-transform: capitalize;
+      align-self: flex-start;
+    }
+
+    & hr {
+      width: 100%;
+      height: 0.5rem;
+      border: none;
+      background-color: $cardBg;
+    }
+  }
+
+  .address-form__second-part {
+    width: 100%;
+    @include flexProp(column, 1rem, space-between);
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    & label {
+      width: 100%;
+      @include flexProp(column, 0.3rem, space-between);
+
+      & span {
+        align-self: flex-start;
+        font-size: 0.8rem;
+        text-transform: capitalize;
+        color: $tertairyText;
+      }
+
+      .input-field {
+        width: 100%;
+        padding: 0.6rem 0.7rem;
+        font-size: 1.1rem;
+        color: $tertairyText;
+        border: 1px solid $hoverBtn;
+
+        &:focus {
+          outline: none;
+        }
+
+        &::placeholder {
+          color: $modalOn;
+          text-transform: capitalize;
+          font-size: 0.8rem;
+        }
+      }
+
+      .selector {
+        width: 100%;
+      }
+    }
+
+    .type-of-address {
+      @include flexProp(column, 0.8rem, flex-start);
+      align-self: flex-start;
+
+      & span {
+        align-self: flex-start;
+        font-size: 0.8rem;
+        text-transform: capitalize;
+        color: $tertairyText;
+      }
+
+      .types-list {
+        @include flexProp(row, 1rem, flex-start);
+
+        & label {
+          @include flexProp(row, 0rem, space-between);
+          position: relative;
+
+          & span {
+            font-size: 1rem;
+            @include flexProp(row, 0.3rem, space-between);
+            border: 1px solid $hoverBtn;
+            padding: 0.5rem;
+            position: absolute;
+
+            .icon {
+              height: 1.2rem;
+              width: 1.2rem;
+            }
+          }
+
+          .address-type-field {
+            height: 1.5rem;
+            width: 4.5rem;
+            cursor: pointer;
+            z-index: 3;
+            appearance: none;
+
+            &:checked + span {
+              color: $bannerTitle;
+              border: 1px solid $bannerTitle;
+            }
+          }
+        }
+      }
+    }
+
+    .use-default-option {
+      margin-top: 1.5rem;
+      @include flexProp(row, 0.6rem, flex-start);
+      font-weight: 500;
+      position: relative;
+
+      .checkmark {
+        position: absolute;
+        z-index: 4;
+        color: $bannerTitle;
+        height: 1.15rem;
+        width: 1.15rem;
+        border-radius: 3px;
+        visibility: hidden;
+      }
+
+      input[type="checkbox"] {
+        height: 1.2rem;
+        width: 1.2rem;
+        appearance: none;
+        z-index: 3;
+        cursor: pointer;
+
+        &:checked + .checkmark {
+          visibility: visible;
+        }
+      }
+
+      .mark-default::before {
+        content: "";
+        height: 1.2rem;
+        width: 1.2rem;
+        border-radius: 3px;
+        background-color: $hoverBtn;
+        position: absolute;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &.hover > .text {
+        color: $bannerTitle;
+      }
+    }
+  }
+
+  .address-form__third-part {
+    width: 100%;
+    @include flexProp(row, 0.5rem, space-between);
+
+    & button {
+      width: 50%;
+      @include useBtns;
+      border-radius: 3px;
+      padding: 0.5rem;
+      font-size: 1rem;
+      text-transform: uppercase;
+      border: 2px solid $bannerTitle;
+    }
+
+    .btn-cancel {
+      @include useBtn2;
+      border-radius: 3px;
+      padding: 0.5rem;
+      font-size: 1rem;
+      text-transform: uppercase;
+    }
+  }
+}

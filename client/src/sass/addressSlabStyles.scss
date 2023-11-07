@@ -1,0 +1,57 @@
+@import "../sass/variables.scss";
+@import "../sass/mixins.scss";
+
+.container__address-slab {
+  width: 100%;
+  @include flexProp(row, 0.5rem, space-between);
+  font-family: "poppins", sans-serif;
+  font-size: 0.8rem;
+  padding: 1rem;
+  color: $secondaryText;
+  background-color: #fff;
+  width: 100%;
+  border-bottom: 1px solid $hoverBtn;
+
+  .address-part {
+    @include flexProp(column, 0.1rem, flex-start);
+    align-items: flex-start;
+
+    & p {
+      & span {
+        font-weight: 500;
+      }
+    }
+
+    .username {
+      font-weight: 600;
+      text-transform: capitalize;
+    }
+
+    .location {
+      @include flexProp(row, 0.6rem, flex-start);
+    }
+  }
+
+  .container__delete-btn {
+    width: 10%;
+    @include flexProp(row, 0rem, center);
+
+    .btn-delete-address {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+
+      .icon {
+        height: 1.3rem;
+        width: 1.3rem;
+        color: $modalOn;
+      }
+
+      &:hover .icon {
+        height: 1.4rem;
+        width: 1.4rem;
+        color: rgb(179, 0, 0);
+      }
+    }
+  }
+}
