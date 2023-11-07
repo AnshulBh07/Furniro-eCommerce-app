@@ -57,7 +57,7 @@ export const getCardData = async () => {
       };
     });
     return ans;
-  } catch (error) {
-    console.error(error.message);
+  } catch (err) {
+    console.error(err);
   }
 };
