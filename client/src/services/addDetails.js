@@ -5,7 +5,7 @@ export const updateUser = async (input_data) => {
   try {
     const response = await axios({
       method: "patch",
-      url: "/api/update_user",
+      url: "https://furniro-e-commerce-app-backend.vercel.app/api/update_user",
       data: input_data,
     });
     const result = response.data;

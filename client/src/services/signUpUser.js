@@ -4,7 +4,7 @@ export const createNewUser = async (info) => {
   try {
     const response = await axios({
       method: "post",
-      url: "/api/new_user",
+      url: "https://furniro-e-commerce-app-backend.vercel.app/api/new_user",
       data: info,
     });
     const result = response.data;

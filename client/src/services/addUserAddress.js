@@ -4,7 +4,7 @@ export const addNewAddress = async (input_data) => {
   try {
     const response = await axios({
       method: "put",
-      url: "/api/add_address",
+      url: "https://furniro-e-commerce-app-backend.vercel.app/api/add_address",
       data: input_data,
     });
 

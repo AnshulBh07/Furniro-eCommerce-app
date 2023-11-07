@@ -2,8 +2,11 @@ import axios from "axios";
 
 export const getCardData = async () => {
   try {
-    const response = await axios.get(`/api/products`);
+    const response = await axios.get(
+      `https://furniro-e-commerce-app-backend.vercel.app/api/products`
+    );
     const result = response.data;
+    console.log(result);
 
     const ans = result.map((item) => {
       //for each item we are destructuring
