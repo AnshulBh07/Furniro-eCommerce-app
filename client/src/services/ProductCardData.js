@@ -58,6 +58,6 @@ export const getCardData = async () => {
     });
     return ans;
   } catch (err) {
-    console.error(err);
+    console.log(err);
   }
 };
