@@ -15,7 +15,7 @@ root.render(
     domain="dev-besio5tqfkhynfhb.us.auth0.com"
     clientId="Ew2bAtMIOkF5RB7K3A8oHO0ubErWCEKh"
     authorizationParams={{
-      redirect_uri: "http://localhost:3000/",
+      redirect_uri: "https://furniro-e-commerce-app-frontend.vercel.app/",
     }}
   >
     <BrowserRouter>
